@@ -7,6 +7,7 @@ Item {
     id: item3
     width: 1280
     height: 720
+    property alias btnDemo: btnDemo
 
     transformOrigin: Item.Center
 
@@ -305,6 +306,7 @@ Item {
                             text: qsTr("Arm Demo")
                             anchors.horizontalCenterOffset: 1
                             anchors.horizontalCenter: parent.horizontalCenter
+
                         },
                         Text {
                             id: txtDemoDescription
