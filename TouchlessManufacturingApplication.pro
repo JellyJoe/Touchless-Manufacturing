@@ -3,7 +3,9 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    MyClass.cpp
+    MyClass.cpp \
+    Serial.cpp \
+    driver.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,4 +16,5 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    MyClass.h
+    MyClass.h \
+    Serial.h

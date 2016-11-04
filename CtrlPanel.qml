@@ -4,5 +4,5 @@ import QtQuick.Layouts 1.2
 
 CtrlPanelForm {
 
-    btnDemo.onClicked:_myClass.buttonClicked()
+    btnDemo.onClicked:_myClass.demoClicked()
 }
