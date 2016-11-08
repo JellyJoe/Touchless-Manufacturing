@@ -8,12 +8,12 @@ using namespace std;
 // application reads from the specified serial port and reports the collected data
 int _tmain(int argc, _TCHAR* argv[])
 {
-    printf("Welcome to the serial test app!\n\n");
+    printf("Welcome to the UARM Terminal app!\n\n");
 
     Serial* ArmSp = new Serial("COM3");    // adjust as needed
 
     if (ArmSp->IsConnected())
-        printf("We're connected to arm");
+    cout << "The Arm is Connected." << endl;
 
     char outgoingData[256] = "";
     char incomingData[256] = "";
@@ -22,6 +22,10 @@ int _tmain(int argc, _TCHAR* argv[])
     int readResult = 0;
     while(ArmSp->IsConnected())
     {
+        cout << "Menu" << endl;
+        cout << "1.Demo Mode" << endl;
+        cout << "2.Learning Mode" << endl;
+        cout << "3.Auto Detection Mode" << endl;
         cout <<"Enter Command:";
         cin >> command;
         if(strcmp(command,"1")==0)
@@ -31,9 +35,6 @@ int _tmain(int argc, _TCHAR* argv[])
         }
         else if(strcmp(command,"2") == 0)
         {
-            strcpy(outgoingData,command);
-            ArmSp->WriteData(outgoingData,dataLength);
-
             char position[2],pump_status[2];
             do
             {
@@ -56,66 +57,51 @@ int _tmain(int argc, _TCHAR* argv[])
 
         }
 
-        else if(strcmp(command,"5")== 0)
+        else if(strcmp(command,"3")== 0)
         {
-            strcpy(outgoingData,command);
-            ArmSp->WriteData(outgoingData,dataLength);
             char setting;
+            int set_b = 0,set_c = 0;
             cout << "Auto Detect" << endl;
-            cout << "Set position b" << endl;
+            cout << "B.Set position b" << endl;
+            cout << "C.Set position c" << endl;
             cin >> setting;
-            ArmSp->WriteData(outgoingData,dataLength);
-            cout << "Set position c" << endl;
-            cin >> setting;
-            ArmSp->WriteData(outgoingData,dataLength);
-
-            Serial* PixySp = new Serial("COM4");
-            if(PixySp->IsConnected())
-                cout << "We are connected pixy" << endl;
-
-            result = SP->ReadData(serial_buffer, BUFFER_SIZE - 1);
-            serial_buffer[result] = '\0';
-
-            if(serial_buffer != NULL)
+            while(set_b == 1 && set_c == 1)
             {
-                getValue = strtok(serial_buffer, " ");
-                while(getValue != NULL)
+                if(strcmp(setting,"b") == 0)
                 {
-                    if(counter == 0)
+                    set_b = 1;
+                    ArmSp->WriteData(outgoingData,dataLength);
+                    if(set_c != 1)
                     {
-                        x = getValue;
-                        counter++;
-                        cout << "x: " << x << "\t\t";
-                        Sleep(500);
+                        cout << "Please Set position C. \n
+                         "Press c to Set position C. \n";
+                         cin >> setting;
+                    }
 
-                    }
-                    else if(counter == 1)
+                }
+                if(strcmp(setting,"c") == 0)
+                {
+                    set_c = 1;
+                    ArmSp->WriteData(outgoingData,dataLength);
+                    if(set_b != 1)
                     {
-                        y = getValue;
-                        counter++;
-                        cout << "y: " << y << "\t\t";
-                        Sleep(500);
+                        cout << "Please Set position B. \n
+                         "Press c to Set position B. \n";
+                         cin >> setting;
                     }
-                    else if(counter == 2)
-                    {
-                        z = getValue;
-                        cout << "z: " << z << "\t\t" << endl;
-                        counter = 0;
-                        Sleep(500);
-                    }
-                    getValue = strtok(NULL, " ");
+
                 }
             }
-
-
-
-
         }
 
 
-        // printf("Bytes read: (0 means no data available) %i\n",readResult);
-
-        Sleep(500);
     }
+
+
+    // printf("Bytes read:
+    (0 means no data available) %i\n",readResult);
+
+    Sleep(500);
+}
     return 0;
 }
