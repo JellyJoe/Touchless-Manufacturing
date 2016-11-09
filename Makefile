@@ -1,19 +1,22 @@
 CXX = g++
 CXXFLAGS = -std=c++11
 
-all: prog
-	./prog
+all: Driver
+	./Driver
 
 rebuild: clean all
 
-prog: prog.cpp libtinyxml2.a
-	$(CXX) $(CXXFLAGS) prog.cpp libtinyxml2.a -o prog
+Driver: Driver.cpp Report.o TinyXML2Lib.a
+	$(CXX) $(CXXFLAGS) Driver.cpp Report.o TinyXML2Lib.a -o Driver
 
-libtinyxml2.a: tinyxml2.o
+Report.o: Report.cpp
+	$(CXX) $(CXXFLAGS) -c Report.cpp
+
+TinyXML2.o: TinyXML2.cpp
+	$(CXX) $(CXXFLAGS) -c TinyXML2.cpp
+
+TinyXML2Lib.a: TinyXML2.o
 	$(AR) $(ARFLAGS)s $@ $^
 
-tinyxml2.o: tinyxml2.cpp
-	$(CXX) $(CXXFLAGS) -c tinyxml2.cpp
-
 clean:
-	rm -rf *.o libtinyxml2.a prog
+	rm -rf *.o TinyXML2Lib.a Driver
