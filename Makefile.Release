@@ -177,6 +177,9 @@ release/moc_MyClass.cpp: ../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/QO
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qcontiguouscache.h \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qsharedpointer.h \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/QProcess \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qprocess.h \
+		Serial.h \
 		MyClass.h \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/bin/moc.exe
 	C:\Qt\Qt5.7.0\5.7\mingw53_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/Qt5.7.0/5.7/mingw53_32/mkspecs/win32-g++ -IC:/Users/Sukhdip/Documents/TouchlessManufacturingApplication -IC:/Qt/Qt5.7.0/5.7/mingw53_32/include -IC:/Qt/Qt5.7.0/5.7/mingw53_32/include/QtQuick -IC:/Qt/Qt5.7.0/5.7/mingw53_32/include/QtGui -IC:/Qt/Qt5.7.0/5.7/mingw53_32/include/QtANGLE -IC:/Qt/Qt5.7.0/5.7/mingw53_32/include/QtQml -IC:/Qt/Qt5.7.0/5.7/mingw53_32/include/QtNetwork -IC:/Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore -IC:/Qt/Qt5.7.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Qt5.7.0/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Qt5.7.0/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Qt5.7.0/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Qt5.7.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.7.0/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward MyClass.h -o release\moc_MyClass.cpp
@@ -285,6 +288,8 @@ release/main.o: main.cpp ../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtGui/QGu
 		MyClass.h \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/QObject \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/QDebug \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/QProcess \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qprocess.h \
 		Serial.h \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtWidgets/QMessageBox \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtWidgets/qmessagebox.h \
@@ -384,13 +389,21 @@ release/MyClass.o: MyClass.cpp MyClass.h \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qset.h \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qcontiguouscache.h \
 		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qsharedpointer.h \
-		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qsharedpointer_impl.h
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/QProcess \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qprocess.h \
+		Serial.h \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/QDir \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qdir.h \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qfileinfo.h \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qfile.h \
+		../../../../Qt/Qt5.7.0/5.7/mingw53_32/include/QtCore/qfiledevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\MyClass.o MyClass.cpp
 
 release/Serial.o: Serial.cpp Serial.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\Serial.o Serial.cpp
 
-release/driver.o: driver.cpp Serial.h
+release/driver.o: driver.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\driver.o driver.cpp
 
 release/qrc_qml.o: release/qrc_qml.cpp 

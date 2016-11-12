@@ -3,7 +3,10 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QProcess>
 #include "Serial.h"
+
+using namespace std;
 
 class MyClass : public QObject
 {
@@ -26,6 +29,8 @@ public slots:
     void buttonClicked() {
         qDebug() << "Called the C++ slot with message:";
     }
+
+    void pixyRun();
 
     void demoClicked();
 };

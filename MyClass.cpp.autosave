@@ -1,6 +1,8 @@
 #include "MyClass.h"
 #include "Serial.h"
 #include <iostream>
+#include <QProcess>
+
 
 MyClass::MyClass(QObject *parent) :
     QObject(parent)
@@ -24,7 +26,6 @@ MyClass::MyClass(QObject *parent) :
 void MyClass::demoClicked()
 {
 
-
     char outgoingData[256] = "";
     //char incomingData[256] = "";
     int dataLength = 255;
@@ -33,6 +34,13 @@ void MyClass::demoClicked()
     SP->WriteData(outgoingData,dataLength);
     Sleep(1000);
 
+}
+
+void MyClass::pixyRun()
+{
+
+    qDebug() << "PixyMon run";
+    QProcess::execute("C:\\PixyMon\\bin\\PixyMon.exe");
 }
 
 
