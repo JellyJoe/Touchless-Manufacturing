@@ -1,10 +1,10 @@
 <arm id="1234">
-    <timestamp date="10-5-2016">
+    <timestamp date="10-05-2016">
         <processed value="31"/>
         <uptime value="312:23:44"/>
         <errors count="0"/>
     </timestamp>
-    <timestamp date="11-5-2016">
+    <timestamp date="11-05-2016">
         <processed value="23"/>
         <uptime value="123:23:44"/>
         <errors count="1">

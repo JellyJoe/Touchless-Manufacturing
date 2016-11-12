@@ -592,8 +592,10 @@ bool Report::LoadXMLFile(const char* XML_STORAGE_FILENAME)
 
 // DisplaySpecificTimestamp() takes in a date format and displays the timestamps data
 // returns false if LoadXMLFile() has not been used or if date format is not valid
-bool Report::DisplaySpecificTimestamp(const string& date)
+bool Report::displaySpecificTimestamp(QString qDate)
 {
+
+    string date = qDate.toLocal8Bit().constData();
     if(doc.RootElement() == NULL)
         return false;
 
@@ -633,7 +635,7 @@ bool Report::DisplaySpecificTimestamp(const string& date)
         timestamp = timestamp->NextSiblingElement();
     }
 
-    cout << "No record found for timestamp \"" << date << "\"" << endl;
+    qDebug() << "No record found for timestamp";
 
     return true;
 }

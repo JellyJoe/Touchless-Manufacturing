@@ -11,6 +11,16 @@ import QtQuick.Dialogs 1.2
 
 ReportForm {
 
+    //signal submitDate(string qdate)
+
+    //Master report button onclick
+    btnMasterReport.onClicked: msgMasterReport.visible = true
+
+    //function setTextField(text){
+    //    console.log(text)
+    //    //textField1.text = text
+    //}
+
     //Master Report Prompt Dialog
     MessageDialog{
 
@@ -24,16 +34,30 @@ ReportForm {
             onAccepted: visible = false
         }
 
+    property string date: Qt.formatDateTime(calendar.selectedDate, "dd-MM-yyyy")
+    property int count: 10
+    property int uptime: 200
+    property int error: 5
+
+    //Date Report Button onclick
+    btnDateReport.onClicked: {
+
+        //submitTextField(date)
+
+        _report.displaySpecificTimestamp(date)
+        //msgReport.visible = true
+    }
+
     //Chosen Date Report Dialog
     MessageDialog {
 
             id: msgReport
             title: "Selected Date Report"
 
-            property string date: Qt.formatDateTime(calendar.selectedDate, "dd-MM-yyyy")
-            property int count: 10
-            property int uptime: 200
-            property int error: 5
+            //property string date: Qt.formatDateTime(calendar.selectedDate, "dd-MM-yyyy")
+            //property int count: 10
+            //property int uptime: 200
+            //property int error: 5
 
             text: "Date: " + date + "\nProcess Count: " + count + "\nUptime: " + uptime + "\nError: " + error
 
@@ -42,12 +66,12 @@ ReportForm {
         }
 
 
-    btnMasterReport.onClicked: msgMasterReport.visible = true
 
 
 
-    //Date Report Button onclick
-    btnDateReport.onClicked: msgReport.visible = true
+
+
+
 
 }
 

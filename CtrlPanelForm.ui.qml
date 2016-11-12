@@ -212,10 +212,11 @@ Item {
                             width: 113
                             height: 38
                             text: "Set"
+
                             checkable: false
                             hoverEnabled: true;
+
                             background: Rectangle {
-                                color: "#2bb9ef"
                                 radius: 20
                                 border.width: 2
 
