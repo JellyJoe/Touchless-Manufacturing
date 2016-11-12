@@ -5,7 +5,9 @@ CONFIG += c++11
 SOURCES += main.cpp \
     MyClass.cpp \
     Serial.cpp \
-    driver.cpp
+    driver.cpp \
+    Report.cpp \
+    tinyxml2.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,4 +19,13 @@ include(deployment.pri)
 
 HEADERS += \
     MyClass.h \
-    Serial.h
+    Serial.h \
+    Report.h \
+    tinyxml2.h
+
+unix:!macx: LIBS += -L$$PWD/./ -ltinyxml2
+
+INCLUDEPATH += $$PWD/.
+DEPENDPATH += $$PWD/.
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/./libtinyxml2.a

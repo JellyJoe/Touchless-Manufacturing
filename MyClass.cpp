@@ -8,7 +8,7 @@
 MyClass::MyClass(QObject *parent) :
     QObject(parent)
 {
-    SP = new Serial("COM6");    // adjust as needed
+    SP = new Serial((char*)"COM6");    // adjust as needed
 
     if (SP->IsConnected())
     {
