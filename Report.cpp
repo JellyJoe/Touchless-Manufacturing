@@ -564,18 +564,18 @@ bool Report::DisplayAllTimestamp()
 //    return true;
 //}
 
-//// SaveXMLFile() saves the current XMLDocument into the file XML_STORAGE_FILENAME
-//// returns false if user has not ran LoadXMLFile() before or it encountered an error saving the file
-//bool Report::SaveXMLFile(const char* XML_STORAGE_FILENAME)
-//{
-//    if(doc.RootElement() == NULL)
-//        return false;
+// SaveXMLFile() saves the current XMLDocument into the file XML_STORAGE_FILENAME
+// returns false if user has not ran LoadXMLFile() before or it encountered an error saving the file
+bool Report::SaveXMLFile(const char* XML_STORAGE_FILENAME)
+{
+    if(doc.RootElement() == NULL)
+        return false;
 
-//    if(doc.SaveFile(XML_STORAGE_FILENAME) != 0)
-//        return false;
+    if(doc.SaveFile(XML_STORAGE_FILENAME) != 0)
+        return false;
 
-//    return true;
-//}
+    return true;
+}
 
 // LoadXMLFile() loads the file XML_STORAGE_FILENAME and validates the content
 // returns false if it encounters any error loading the file or the content does not pass validation test
@@ -594,8 +594,8 @@ bool Report::LoadXMLFile(const char* XML_STORAGE_FILENAME)
 // returns false if LoadXMLFile() has not been used or if date format is not valid
 bool Report::displaySpecificTimestamp(QString qDate)
 {
-
     string date = qDate.toLocal8Bit().constData();
+
     if(doc.RootElement() == NULL)
         return false;
 
@@ -606,36 +606,42 @@ bool Report::displaySpecificTimestamp(QString qDate)
     XMLElement* processed = NULL;
     XMLElement* uptime = NULL;
     XMLElement* errors = NULL;
-    XMLElement* error = NULL;
+//    XMLElement* error = NULL;
 
     while(timestamp != NULL) // iterates through the whole timestamp record
     {
         if(strcmp(timestamp->Attribute("date"), date.c_str()) == 0) // if the date matches the timestamp
         {
             processed = timestamp->FirstChildElement("processed");
-            cout << "Processed: " << processed->Attribute("value") << endl;
+//            cout << "Processed: " << processed->Attribute("value") << endl;
 
             uptime = processed->NextSiblingElement("uptime");
-            cout << "Uptime: " << uptime->Attribute("value") << endl;
+//            cout << "Uptime: " << uptime->Attribute("value") << endl;
 
             errors = uptime->NextSiblingElement("errors");
-            cout << "Error count: " << errors->Attribute("count") << endl;
+//            cout << "Error count: " << errors->Attribute("count") << endl;
 
-            int error_count_int = errors->IntAttribute("count");
-            error = errors->FirstChildElement("error");
-            for(int i = 0; i < error_count_int; i++)
-            {
-                cout << "Error message " << i + 1 << ": " << error->GetText() << endl;
-                error = error->NextSiblingElement("error");
-            }
+//            int error_count_int = errors->IntAttribute("count");
+//            error = errors->FirstChildElement("error");
+//            for(int i = 0; i < error_count_int; i++)
+//            {
+//                cout << "Error message " << i + 1 << ": " << error->GetText() << endl;
+//                error = error->NextSiblingElement("error");
+//            }
 
+            QString processedQString = QString::fromUtf8(processed->Attribute("value"));
+            QString uptimeQString = QString::fromUtf8(uptime->Attribute("value"));
+            QString countQString = QString::fromUtf8(errors->Attribute("count"));
+
+            emit sendTimestampData(processedQString, uptimeQString, countQString);
             return true;
         }
 
         timestamp = timestamp->NextSiblingElement();
     }
 
-    qDebug() << "No record found for timestamp";
+    emit sendTimestampData("nil", "nil", "nil");
+//    cout << "No record found for timestamp" << endl;
 
     return true;
 }
@@ -671,3 +677,4 @@ bool Report::DeleteTimestamp(const string& date)
 
     return true;
 }
+

@@ -20,10 +20,10 @@ class Report : public QObject
         bool IsDigitString(const string&);
         bool ValidateUptime(const char*);
         bool ValidateXMLContent();
+        bool ValidateDate(const char*);
 
     public:
         Report() {}
-        bool ValidateDate(const char*);
         bool LoadXMLFile(const char*);
         bool SaveXMLFile(const char*);
         //bool AddTimestamp(); // change according to data obtained from arm
@@ -33,18 +33,9 @@ class Report : public QObject
 
     public slots:
         bool displaySpecificTimestamp(QString);
-        /*void handleSubmitTextField(const QString& in){
-            qDebug() << "c++: HandleTextField::handleSubmitTextField:" << in;
-
-            QString message = "checking";
-
-            emit setTextField(message);
-        }*/
 
     signals:
-        //void setTextField(QVariant text);
-
-
+        void sendTimestampData(QString processed, QString uptime, QString errorCount);
 };
 
 #endif // __REPORT_H__

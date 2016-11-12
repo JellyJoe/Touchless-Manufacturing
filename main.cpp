@@ -16,7 +16,8 @@
 
 using namespace std;
 
-const char XML_DATA_STORAGE[] = "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml";
+const char XML_DATA_STORAGE[] = "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Arm_Data_Storage.xml";
+//const char XML_DATA_STORAGE[] = "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml";
 
 int main(int argc, char *argv[])
 {
@@ -26,31 +27,16 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
-    Report report;
     MyClass myClass;
-
-    /*
-    ===========================================================================
-
-    QObject::connect(Report, SIGNAL(submitTextField(QString)),
-                         &report, SLOT(handleSubmitTextField(QString)));
-
-    QObject::connect(&report, SIGNAL(setTextField(QVariant)),
-                     Report, SLOT(setTextField(QVariant)));
-
-
-    ===========================================================================
-    */
-
-
-
     engine.rootContext()->setContextProperty("_myClass", &myClass);
+
+    Report report;
     engine.rootContext()->setContextProperty("_report", &report);
 
     if(report.LoadXMLFile(XML_DATA_STORAGE) == true)
-        qDebug() << "YAY";
+        qDebug() << "Successfully loaded XML file.";
     else
-        qDebug() << "NO";
+        qDebug() << "Failed to load XML file.";
 
     return app.exec();
 }
