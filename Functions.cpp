@@ -2,9 +2,9 @@
 Arm::Arm(QObject *parent) :
     QObject(parent)
 {
-    SP = new Serial((char*)"COM6");    // adjust as needed
+    ArmSp = new Serial((char*)"COM6");    // adjust as needed
 
-    if (SP->IsConnected())
+    if (ArmSp->IsConnected())
     {
         std::cout << "Arm is connected" << endl;
     }
@@ -56,4 +56,10 @@ void Arm::executeManualMovement()
     strcpy(outgoingData,"d");
     ArmSp->WriteData(outgoingData,dataLength);
 
+}
+
+void Arm::stopMovement()
+{
+    delete ArmSp;
+    ArmSp = new Serial((char*)"COM6");
 }

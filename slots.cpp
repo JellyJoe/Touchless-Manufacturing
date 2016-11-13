@@ -17,6 +17,5 @@ public slots:
     void saveWithPump();
     void saveWithoutPump();
     void executeManualMovement();
+    void stopMovement();
 };
-
-#endif // MYCLASS_H

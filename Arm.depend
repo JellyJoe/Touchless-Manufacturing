@@ -1,0 +1,33 @@
+# depslib dependency file v1.0
+1478861876 source:c:\users\woon\desktop\touchless-manufacturing-arm\serial.cpp
+	"Serial.h"
+
+1478861876 c:\users\woon\desktop\touchless-manufacturing-arm\serial.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1478873670 source:c:\users\woon\desktop\touchless-manufacturing-arm\main.cpp
+	<stdio.h>
+	<tchar.h>
+	"Serial.h"
+	<string>
+	<iostream>
+	<unistd.h>
+
+1478940597 source:c:\users\woont\desktop\touchless-manufacturing-arm\main.cpp
+	<stdio.h>
+	<tchar.h>
+	"Serial.h"
+	<string>
+	<iostream>
+	<unistd.h>
+
+1478939364 c:\users\woont\desktop\touchless-manufacturing-arm\serial.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+
+1478939364 source:c:\users\woont\desktop\touchless-manufacturing-arm\serial.cpp
+	"Serial.h"
+
