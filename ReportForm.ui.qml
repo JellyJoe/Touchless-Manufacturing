@@ -12,9 +12,14 @@ Item {
     id: item1
     width: 1280
     height: 720
+
+    /* Report button and background configuration */
     property alias btnDateReport: btnDateReport
     property alias btnMasterReport: btnMasterReport
     property alias calendar: calendar
+    property alias masterReportBackground:masterReportBackground
+    property alias dateReportBackground:dateReportBackground
+
     transformOrigin: Item.Center
 
 
@@ -56,6 +61,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             background: Rectangle {
+                id:masterReportBackground
                 color: "#2bb9ef"
                 radius: 15
                 border.width: 1
@@ -85,11 +91,10 @@ Item {
             spacing: 0
             topPadding: 6
             anchors.horizontalCenter: parent.horizontalCenter
-
             checkable: true
-            checked: false
 
             background: Rectangle {
+                id:dateReportBackground
                 color: "#2bb9ef"
                 radius: 15
                 border.width: 1

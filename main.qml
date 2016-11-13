@@ -52,12 +52,14 @@ ApplicationWindow {
                 title: "Close Program"
                 icon: StandardIcon.Warning
 
-
-
                 standardButtons: StandardButton.Ok | StandardButton.Cancel
                 text: "Exit Touchless Manufacturing Application?"
                 onAccepted: {
                     Qt.quit()
+                }
+
+                onRejected: {
+                    tabBar.currentIndex = 0
                 }
             }
 

@@ -5,9 +5,9 @@ CONFIG += c++11
 SOURCES += main.cpp \
     MyClass.cpp \
     Serial.cpp \
-    driver.cpp \
     Report.cpp \
-    tinyxml2.cpp
+    tinyxml2.cpp \
+    Arm.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,7 +21,8 @@ HEADERS += \
     MyClass.h \
     Serial.h \
     Report.h \
-    tinyxml2.h
+    tinyxml2.h \
+    Arm.h
 
 unix:!macx: LIBS += -L$$PWD/./ -ltinyxml2
 

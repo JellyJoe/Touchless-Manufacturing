@@ -7,9 +7,43 @@ Item {
     id: item3
     width: 1280
     height: 720
-    property alias btnSignatureFetch: btnSignatureFetch
+
+    //=======================================================================================================
+    //                          Property declarations for button and background
+
+
+    //Automatic process configuration (button and background)
+    property alias btnConnectAuto: btnConnectAuto //establish connection with the arm
+    property alias btnActivateArmAuto: btnActivateArmAuto //execute arms based on auto config
+    property alias btnStopArmAuto: btnStopArmAuto //stop arm process
+    property alias btnSignatureFetch: btnSignatureFetch //open up pixymon for signature store into pixy
+    property alias btnStamperPosition: btnStamperPosition //get the stamper position
+    property alias btnPositionEnd: btnPositionEnd //get the end placement position
+
+    property alias positionEndBackground: positionEndBackground //btnPositionEnd background
+    property alias stamperBackground: stamperBackground //btnStamperPosition background
+    property alias signatureBackground: signatureBackground //btnSignatureFetch background
+
+
+
+    //Manual process configuration (button and background)
+    property alias btnConnectManual: btnConnectManual //establish connection with arm
+    property alias btnActivateArmManual: btnActivateArmManual //execute arm based on manual config
+    property alias btnStopArmManual: btnStopArmManual //stop arm process
+    property alias btnMoveWithPump: btnMoveWithPump // store coordinate with pump
+    property alias btnMoveWithoutPump: btnMoveWithoutPump //store coordinate without pump
+
+    property alias withPumpBackground: withPumpBackground //btnMoveWithPump background
+    property alias withoutPumpBackground: withoutPumpBackground //btnMoveWithoutPump background
+
+
+    //Demo process configuration (button)
     property alias btnDemo: btnDemo
 
+    //=======================================================================================================
+
+
+    //position the item container to center
     transformOrigin: Item.Center
 
 
@@ -55,10 +89,20 @@ Item {
                 contentData: [
 
                 Button {
-                    id: btnActivateArmManual
+                    id: btnConnectManual
                     x: 66
+                    y: 194
+                    width: 100
+                    height: 47
+                    text: qsTr("Connect Arm")
+                    enabled: true
+                },
+
+                Button {
+                    id: btnActivateArmManual
+                    x: 207
                     y: 195
-                    width: 154
+                    width: 100
                     height: 47
                     text: qsTr("Activate Arm")
                     enabled: true
@@ -66,9 +110,9 @@ Item {
 
                 Button {
                     id: btnStopArmManual
-                    x: 264
-                    y: 195
-                    width: 154
+                    x: 350
+                    y: 194
+                    width: 100
                     height: 47
                     text: qsTr("Stop Arm")
                     enabled: true
@@ -84,8 +128,8 @@ Item {
                     enabled: true
                     autoRepeat: false
                     autoExclusive: false
-                    checkable: true
                     background: Rectangle {
+                        id: withPumpBackground
                         color: "#2bb9ef"
                         radius: 20
                         border.width: 2
@@ -100,8 +144,8 @@ Item {
                     height: 46
                     text: "Set move without pump"
                     enabled: true
-                    checkable: false
                     background: Rectangle {
+                        id:withoutPumpBackground
                         color: "#2bb9ef"
                         radius: 20
                         border.width: 2
@@ -182,13 +226,25 @@ Item {
                     contentData: [
 
                         Button {
+                            id: btnConnectAuto
+                            x: 111
+                            y: 190
+                            width: 100
+                            height: 47
+                            text: qsTr("Connect Arm")
+                            anchors.horizontalCenterOffset: -139
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            enabled: true
+                        },
+
+                        Button {
                             id: btnActivateArmAuto
                             x: 111
-                            y: 188
-                            width: 154
+                            y: 190
+                            width: 100
                             height: 47
                             text: qsTr("Activate Arm")
-                            anchors.horizontalCenterOffset: -113
+                            anchors.horizontalCenterOffset: 1
                             anchors.horizontalCenter: parent.horizontalCenter
                             enabled: true
                         },
@@ -196,11 +252,11 @@ Item {
                         Button {
                             id: btnStopArmAuto
                             x: 111
-                            y: 188
-                            width: 154
+                            y: 190
+                            width: 100
                             height: 47
                             text: qsTr("Stop Arm")
-                            anchors.horizontalCenterOffset: 87
+                            anchors.horizontalCenterOffset: 141
                             anchors.horizontalCenter: parent.horizontalCenter
                             enabled: true
                         },
@@ -213,10 +269,11 @@ Item {
                             height: 38
                             text: "Set"
 
-                            checkable: false
                             hoverEnabled: true;
 
                             background: Rectangle {
+                                id:signatureBackground
+                                color: "#2bb9ef"
                                 radius: 20
                                 border.width: 2
 
@@ -241,8 +298,8 @@ Item {
                             width: 113
                             height: 38
                             text: "Set"
-                            checkable: false
                             background: Rectangle {
+                                id:stamperBackground
                                 color: "#2bb9ef"
                                 radius: 20
                                 border.width: 2
@@ -269,8 +326,8 @@ Item {
                             width: 113
                             height: 38
                             text: "Set"
-                            checkable: false
                             background: Rectangle {
+                                id:positionEndBackground
                                 color: "#2bb9ef"
                                 radius: 20
                                 border.width: 2

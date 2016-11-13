@@ -13,11 +13,12 @@
 #include "MyClass.h"
 #include "Serial.h"
 #include "Report.h"
+#include "Arm.h"
 
 using namespace std;
 
-const char XML_DATA_STORAGE[] = "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Arm_Data_Storage.xml";
-//const char XML_DATA_STORAGE[] = "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml";
+//const char XML_DATA_STORAGE[] = "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Arm_Data_Storage.xml";
+const char XML_DATA_STORAGE[] = "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml";
 
 int main(int argc, char *argv[])
 {
@@ -26,6 +27,9 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
+
+    Arm arm;
+    engine.rootContext()->setContextProperty("_myArm", &arm);
 
     MyClass myClass;
     engine.rootContext()->setContextProperty("_myClass", &myClass);

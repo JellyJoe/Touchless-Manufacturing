@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\MyClass.o
+./release\Serial.o
+./release\Report.o
+./release\tinyxml2.o
+./release\Arm.o
+./release\qrc_qml.o
+./release\moc_MyClass.o
+./release\moc_Report.o
+./release\moc_Arm.o
+);

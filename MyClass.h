@@ -17,22 +17,16 @@ private:
 
 public:
 
-    Serial* SP;
-
     explicit MyClass(QObject *parent = 0);
-    void addition()
-    {
 
-    }
 
 public slots:
-    void buttonClicked() {
+    /*void buttonClicked() {
         qDebug() << "Called the C++ slot with message:";
-    }
+    }*/
 
     void pixyRun();
 
-    void demoClicked();
 };
 
 #endif // MYCLASS_H

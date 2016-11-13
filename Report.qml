@@ -10,8 +10,47 @@ import QtQuick.Dialogs 1.2
 
 ReportForm
 {
+
+
+
+    //===================================================================================
+    //                              MASTER REPORT
+
+    //Master report button onclick
+    btnMasterReport.onClicked: msgMasterReport.visible = true
+
+    //lighter colour onclick
+    btnMasterReport.onPressed: {
+        masterReportBackground.color = "#68ccf2"
+    }
+    //original colour upon release
+    btnMasterReport.onReleased: {
+        masterReportBackground.color = "#2bb9ef"
+    }
+
+    //Master Report Prompt Dialog
+    MessageDialog
+    {
+        id: msgMasterReport
+        title: "Master Report"
+
+        property string txtMasterPrompt: "The MasterReport.xls file has been created on the desktop"
+
+        text: txtMasterPrompt
+        icon: StandardIcon.Information
+        onAccepted: visible = false
+    }
+
+
+
+    //===================================================================================
+    //                              SPECIFIC DATE REPORT
+
+
+    //date selection based on calendar click
     property string date: Qt.formatDateTime(calendar.selectedDate, "dd-MM-yyyy")
 
+    //establish connection for the data retrieval from the xml
     Connections
     {
         target: _report
@@ -29,24 +68,17 @@ ReportForm
         }
     }
 
-    //Master report button onclick
-    btnMasterReport.onClicked: msgMasterReport.visible = true
-
-    //Master Report Prompt Dialog
-    MessageDialog
-    {
-        id: msgMasterReport
-        title: "Master Report"
-
-        property string txtMasterPrompt: "The MasterReport.xml file has been created"
-
-        text: txtMasterPrompt
-        icon: StandardIcon.Information
-        onAccepted: visible = false
-    }
-
     //Date Report Button onclick
     btnDateReport.onClicked: _report.displaySpecificTimestamp(date)
+
+    //lighter colour onclick
+    btnDateReport.onPressed: {
+        dateReportBackground.color = "#68ccf2"
+    }
+    //original colour upon release
+    btnDateReport.onReleased: {
+        dateReportBackground.color = "#2bb9ef"
+    }
 
     //Chosen Date Report Dialog
     MessageDialog
