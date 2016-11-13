@@ -7,8 +7,16 @@
     <timestamp date="11-5-2016">
         <processed value="23"/>
         <uptime value="123:23:44"/>
+        <errors count="2">
+            <error>Error test message 1.</error>
+            <error>Error test message 2.</error>
+        </errors>
+    </timestamp>
+    <timestamp date="12-5-2016">
+        <processed value="44"/>
+        <uptime value="12:23:45"/>
         <errors count="1">
-            <error>Error test message.</error>
+            <error>Error test message 1.</error>
         </errors>
     </timestamp>
 </arm>
