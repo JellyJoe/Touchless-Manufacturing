@@ -47,7 +47,8 @@ void MyClass::pixyRun()
     //QProcess *myProcess = new QProcess();
     //myProcess->start(program);
     //myProcess->start("C:\\PixyMon.exe");
-    QProcess::execute("C:\\PixyMon\\bin\\PixyMon.exe");
+//    QProcess::execute("C:\\PixyMon\\bin\\PixyMon.exe");
+    QProcess::execute("\"C:\\Program Files (x86)\\PixyMon\\bin\\PixyMon.exe\"");
 }
 
 
