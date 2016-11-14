@@ -35,6 +35,8 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user*
 
-# Debug and Release directory
+# Debug and Release files and directory
 debug/
 release/
+*.Debug
+*.Release
