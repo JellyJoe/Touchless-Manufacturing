@@ -27,12 +27,12 @@ class Report : public QObject
         bool LoadXMLFile(const char*);
         bool SaveXMLFile(const char*);
         //bool AddTimestamp(); // change according to data obtained from arm
-
         bool DisplayAllTimestamp();
         bool DeleteTimestamp(const string&);
 
     public slots:
         bool displaySpecificTimestamp(QString);
+        bool generateMasterReport(QString);
 
     signals:
         void sendTimestampData(QString processed, QString uptime, QString errorCount);

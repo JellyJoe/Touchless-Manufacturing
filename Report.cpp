@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "Report.h"
 
 bool Report::IsDigitString(const string& number)
@@ -678,3 +679,202 @@ bool Report::DeleteTimestamp(const string& date)
     return true;
 }
 
+bool Report::generateMasterReport(QString q_EXCEL_TEMPLATE_FILENAME)
+{
+    string EXCEL_TEMPLATE_FILENAME = q_EXCEL_TEMPLATE_FILENAME.toLocal8Bit().constData();
+
+    if(doc.RootElement() == NULL) // if user has not ran LoadXMLFile()
+        return false;
+
+    XMLDocument excelDoc;
+    if(excelDoc.LoadFile(EXCEL_TEMPLATE_FILENAME.c_str()) != 0) // loads the Excel Template file
+        return false;
+
+    XMLElement* workbook = excelDoc.FirstChildElement("Workbook");
+    if(workbook == NULL)
+        return false;
+
+    XMLElement* worksheet = workbook->FirstChildElement("Worksheet");
+    if(worksheet == NULL)
+        return false;
+
+    XMLElement* table = worksheet->FirstChildElement("Table");
+    if(table == NULL)
+        return false;
+
+    for(int i = 0; i < 2; i++) // sets the first two row of the Excel file
+    {
+        XMLElement* row = excelDoc.NewElement("Row");
+        XMLElement* cell = excelDoc.NewElement("Cell");
+        XMLElement* data = excelDoc.NewElement("Data");
+
+        if(i == 0) // merged 4 columns and have a text of "Arm"
+        {
+            cell->SetAttribute("ss:MergeAcross", 3);
+            cell->SetAttribute("ss:StyleID", "s63");
+            data->SetAttribute("ss:Type", "String");
+            data->SetText("Arm");
+
+            cell->InsertEndChild(data);
+            row->InsertEndChild(cell);
+            table->InsertEndChild(row);
+        }
+        else if(i == 1) // sets the second row of the excel file
+        {
+            for(int j = 0; j < 4; j++) // iterates through each column
+            {
+                cell = excelDoc.NewElement("Cell");
+                data = excelDoc.NewElement("Data");
+                data->SetAttribute("ss:Type", "String");
+
+                if(j == 0) // set the text of each column
+                    data->SetText("Date");
+                else if(j == 1)
+                    data->SetText("Processed");
+                else if(j == 2)
+                    data->SetText("Uptime");
+                else
+                    data->SetText("Error Message");
+
+                cell->InsertEndChild(data);
+                row->InsertEndChild(cell);
+            }
+            table->InsertEndChild(row);
+        }
+    }
+
+    // declaration of arm data storage variables
+    XMLElement* arm = doc.FirstChildElement();
+    const XMLElement* timestamp = arm->FirstChildElement("timestamp");
+    const XMLElement* processed = NULL;
+    const XMLElement* uptime = NULL;
+    const XMLElement* errors = NULL;
+    const XMLElement* error = NULL;
+
+    if(timestamp ==  NULL) // no records
+        return false;
+
+    while(timestamp != NULL) // iterates through every record
+    {
+        // declaration of excel document elements
+        XMLElement* row = excelDoc.NewElement("Row");
+        XMLElement* cell = excelDoc.NewElement("Cell");
+        XMLElement* data = excelDoc.NewElement("Data");
+
+        // retrieves the data from the arm data storage file
+        processed = timestamp->FirstChildElement("processed");
+        uptime = processed->NextSiblingElement("uptime");
+        errors = uptime->NextSiblingElement("errors");
+        error = NULL;
+
+        for(int i = 0; i < 4; i++) // set the arm data into each of their columns
+        {
+            cell = excelDoc.NewElement("Cell");
+            data = excelDoc.NewElement("Data");
+
+            if(i == 0) // sets the date data into the first column
+            {
+                data->SetText(timestamp->Attribute("date"));
+                data->SetAttribute("ss:Type", "String");
+                cell->InsertEndChild(data);
+                row->InsertEndChild(cell);
+            }
+            else if(i == 1) // sets the processed value into the second column
+            {
+                data->SetText(processed->Attribute("value"));
+                data->SetAttribute("ss:Type", "Number");
+                cell->InsertEndChild(data);
+                row->InsertEndChild(cell);
+            }
+            else if(i == 2) // sets the uptime value to the third column
+            {
+                data->SetText(uptime->Attribute("value"));
+                data->SetAttribute("ss:Type", "String");
+                cell->InsertEndChild(data);
+                row->InsertEndChild(cell);
+            }
+            else // sets the error message on the last column
+            {
+                int error_count_int = errors->IntAttribute("count");
+                error = errors->FirstChildElement("error");
+                if(error_count_int == 0) // if there are no errors from the date
+                {
+                    data->SetAttribute("ss:Type", "String");
+                    data->SetText("Nil");
+                    cell->InsertEndChild(data);
+                    row->InsertEndChild(cell);
+                    table->InsertEndChild(row);
+                }
+                else // at least one error was found in the date
+                {
+                    for(int j = 0; j < error_count_int; j++) // iterates through each errors
+                    {
+                        if(j == 0) // if it is the first error message, it will be on the same row as the other data
+                        {
+                            data->SetAttribute("ss:Type", "String");
+                            data->SetText(error->GetText());
+                            cell->InsertEndChild(data);
+                            row->InsertEndChild(cell);
+                            table->InsertEndChild(row);
+                        }
+                        else // if it is not the first error message, it will be below the previous error message
+                        {
+                            row = excelDoc.NewElement("Row");
+                            cell = excelDoc.NewElement("Cell");
+                            data = excelDoc.NewElement("Data");
+                            cell->SetAttribute("ss:Index", "4");
+                            data->SetAttribute("ss:Type", "String");
+                            data->SetText(error->GetText());
+                            cell->InsertEndChild(data);
+                            row->InsertEndChild(cell);
+                            table->InsertEndChild(row);
+                        }
+                        error = error->NextSiblingElement("error");
+                    }
+                }
+            }
+        }
+
+        // Adds an empty merged cell under a timestamp record
+        row = excelDoc.NewElement("Row");
+        cell = excelDoc.NewElement("Cell");
+        data = excelDoc.NewElement("Data");
+        cell->SetAttribute("ss:MergeAcross", 3);
+        cell->SetAttribute("ss:StyleID", "s63");
+        data->SetAttribute("ss:Type", "String");
+        cell->InsertEndChild(data);
+        row->InsertEndChild(cell);
+        table->InsertEndChild(row);
+
+        timestamp = timestamp->NextSiblingElement("timestamp"); // goes to the next timestamp
+    }
+
+    if(excelDoc.SaveFile("MasterReport.temp") != 0) // fails to save the excel document
+        return false;
+
+    string temp;
+    ofstream masterFileStream;
+    masterFileStream.open("MasterReport.xml");
+    if(!masterFileStream) // file not found or cannot be opened
+        return false;
+
+    ifstream tempFileStream;
+    tempFileStream.open("MasterReport.temp");
+    if(!tempFileStream) // file not found or cannot be opened
+        return false;
+
+    masterFileStream << "<?xml version=\"1.0\"?>" << endl;
+    masterFileStream << "<?mso-application progid=\"Excel.Sheet\"?>" << endl;
+
+    getline(tempFileStream, temp); // removes the first line from the temp file
+    while(!tempFileStream.eof()) // dumps all the remaining lines from the temp file into the master file
+    {
+        getline(tempFileStream, temp);
+        masterFileStream << temp << endl;
+    }
+
+    masterFileStream.close();
+    tempFileStream.close();
+
+    return true;
+}

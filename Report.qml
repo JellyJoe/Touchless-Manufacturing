@@ -10,21 +10,27 @@ import QtQuick.Dialogs 1.2
 
 ReportForm
 {
-
-
-
     //===================================================================================
     //                              MASTER REPORT
 
+    property string excel_template_filename: "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Excel_Template.xml"
+    //property string excel_template_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Excel_Template.xml"
+
     //Master report button onclick
-    btnMasterReport.onClicked: msgMasterReport.visible = true
+    btnMasterReport.onClicked:
+    {
+        _report.generateMasterReport(excel_template_filename)
+        msgMasterReport.visible = true
+    }
 
     //lighter colour onclick
-    btnMasterReport.onPressed: {
+    btnMasterReport.onPressed:
+    {
         masterReportBackground.color = "#68ccf2"
     }
     //original colour upon release
-    btnMasterReport.onReleased: {
+    btnMasterReport.onReleased:
+    {
         masterReportBackground.color = "#2bb9ef"
     }
 
@@ -34,18 +40,15 @@ ReportForm
         id: msgMasterReport
         title: "Master Report"
 
-        property string txtMasterPrompt: "The MasterReport.xls file has been created on the desktop"
+        property string txtMasterPrompt: "The MasterReport file has been created on the desktop."
 
         text: txtMasterPrompt
         icon: StandardIcon.Information
         onAccepted: visible = false
     }
 
-
-
     //===================================================================================
     //                              SPECIFIC DATE REPORT
-
 
     //date selection based on calendar click
     property string date: Qt.formatDateTime(calendar.selectedDate, "dd-MM-yyyy")
@@ -72,11 +75,13 @@ ReportForm
     btnDateReport.onClicked: _report.displaySpecificTimestamp(date)
 
     //lighter colour onclick
-    btnDateReport.onPressed: {
+    btnDateReport.onPressed:
+    {
         dateReportBackground.color = "#68ccf2"
     }
     //original colour upon release
-    btnDateReport.onReleased: {
+    btnDateReport.onReleased:
+    {
         dateReportBackground.color = "#2bb9ef"
     }
 
