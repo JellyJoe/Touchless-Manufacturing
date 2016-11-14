@@ -4,32 +4,54 @@ import QtQuick.Layouts 1.2
 
 CtrlPanelForm {
 
+    // REFERENCE
+    // http://doc.qt.io/qt-5/qml-qtquick-controls2-textarea-members.html
+    txtManualMoveRecord.readOnly: true
+    txtManualMoveRecord.textFormat: TextEdit.RichText // for color
 
     //========================================================================================
     //                                      MANUAL
 
     //stop the manual process
-    btnStopArmManual.onClicked: _myArm.stopMovement()
+    btnStopArmManual.onClicked:
+    {
+        txtManualMoveRecord.append("<font color=\"red\">MANUAL: Stopped arm movement</font>")
+        _myArm.stopMovement()
+    }
 
     //activate the manual process
-    btnActivateArmManual.onClicked: _myArm.executeManualMovement()
+    btnActivateArmManual.onClicked:
+    {
+        txtManualMoveRecord.append("MANUAL: Activated arm movement")
+        _myArm.executeManualMovement()
+    }
 
     //establish connection with arm for manual process
-    btnConnectManual.onClicked: _myArm.manualLuanched()
-
+    btnConnectManual.onClicked:
+    {
+        txtManualMoveRecord.append("MANUAL: Connected arm movement")
+        _myArm.manualLuanched()
+    }
 
 
     /*----- Move with pump button configuration -----*/
 
     //store coordinate with suction active
-    btnMoveWithPump.onClicked: _myArm.saveWithPump()
+    btnMoveWithPump.onClicked:
+    {
+        txtManualMoveRecord.append("MANUAL: Stored coordinates with suction activation")
+        _myArm.saveWithPump()
+    }
 
     //lighter colour onclick
-    btnMoveWithPump.onPressed: {
+    btnMoveWithPump.onPressed:
+    {
         withPumpBackground.color = "#68ccf2"
     }
+
     //original colour upon release
-    btnMoveWithPump.onReleased: {
+    btnMoveWithPump.onReleased:
+    {
         withPumpBackground.color = "#2bb9ef"
     }
 
@@ -37,14 +59,21 @@ CtrlPanelForm {
     /*----- Move with without pump button configuration -----*/
 
     //store coordinate without suction
-    btnMoveWithoutPump.onClicked: _myArm.saveWithoutPump()
+    btnMoveWithoutPump.onClicked:
+    {
+        txtManualMoveRecord.append("MANUAL: Stored coordinates only")
+        _myArm.saveWithoutPump()
+    }
 
     //lighter colour onclick
-    btnMoveWithoutPump.onPressed: {
+    btnMoveWithoutPump.onPressed:
+    {
         withoutPumpBackground.color = "#68ccf2"
     }
+
     //original colour upon release
-    btnMoveWithoutPump.onReleased: {
+    btnMoveWithoutPump.onReleased:
+    {
         withoutPumpBackground.color = "#2bb9ef"
 
     }
@@ -56,27 +85,35 @@ CtrlPanelForm {
     /*----- Signature button configuration -----*/
 
     //run pixymon to fetch signature of item
-    btnSignatureFetch.onClicked:_myClass.pixyRun()
+    btnSignatureFetch.onClicked:
+    {
+        txtManualMoveRecord.append("AUTOMATIC: This shit good!!!")
+        _myClass.pixyRun()
+    }
 
     //lighter colour onclick
-    btnSignatureFetch.onPressed: {
+    btnSignatureFetch.onPressed:
+    {
         signatureBackground.color = "#68ccf2"
     }
+
     //original colour upon release
-    btnSignatureFetch.onReleased: {
+    btnSignatureFetch.onReleased:
+    {
         signatureBackground.color = "#2bb9ef"
     }
-
 
     /*----- Store the stamper position -----*/
 
     //lighter colour onclick
-    btnStamperPosition.onPressed: {
+    btnStamperPosition.onPressed:
+    {
         stamperBackground.color = "#68ccf2"
-
     }
+
     //original colour upon release
-    btnStamperPosition.onReleased: {
+    btnStamperPosition.onReleased:
+    {
         stamperBackground.color = "#2bb9ef"
     }
 
@@ -84,11 +121,13 @@ CtrlPanelForm {
     /*----- Store the end position -----*/
 
     //lighter colour onclick
-    btnPositionEnd.onPressed: {
+    btnPositionEnd.onPressed:
+    {
         positionEndBackground.color = "#68ccf2"
     }
     //original colour upon release
-    btnPositionEnd.onReleased: {
+    btnPositionEnd.onReleased:
+    {
         positionEndBackground.color = "#2bb9ef"
     }
 
@@ -96,8 +135,11 @@ CtrlPanelForm {
     //                                      DEMO
 
     //execute demo movemement for arm
-    btnDemo.onClicked:_myArm.demoClicked()
-
+    btnDemo.onClicked:
+    {
+        txtManualMoveRecord.append("DEMO: Running...")
+        _myArm.demoClicked()
+    }
 
 
 }

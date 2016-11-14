@@ -7,6 +7,7 @@ Item {
     id: item3
     width: 1280
     height: 720
+    property alias txtManualMoveRecord: txtManualMoveRecord
 
     //=======================================================================================================
     //                          Property declarations for button and background
