@@ -1,7 +1,7 @@
 #ifndef __ARM_H__
 #define __ARM_H__
 //Header Files
-#define MAX_OUTGOING_DATA_LENGTH 10;
+#define MAX_OUTGOING_DATA_LENGTH 10
 #include <QObject>
 #include <QDebug>
 #include <QProcess>

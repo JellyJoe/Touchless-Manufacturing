@@ -163,20 +163,30 @@ Item {
                     }
                 },
 
-                TextArea {
-                    id: txtManualMoveRecord
-                    x: 464
-                    y: 6
-                    width: 465
-                    height: 236
-                    anchors.right: parent.right
-                    anchors.rightMargin: 20
+                    Flickable {
+                        id: flickableManualMoveRecord
+                        width: 465
+                        height: 236
+                        anchors.right: parent.right
+                        anchors.rightMargin: 20
+                        contentWidth: txtManualMoveRecord.width
+                        contentHeight: txtManualMoveRecord.height
 
-                    background: Rectangle{
-                        color:"white"
-                    }
-                },
+                        TextArea.flickable: TextArea {
+                            id: txtManualMoveRecord
+                            anchors.centerIn: flickableManualMoveRecord
+                            width: 465
+                            height: 236
 
+                            background: Rectangle{
+                                color:"white"
+                            }
+
+                        }
+
+                    },
+
+                    
                 Text {
                         id: text10
                         x: 246

@@ -7,7 +7,6 @@
 #include <QDir>
 #include <QDebug>
 
-int Arm::dataLength = 10;
 
 //Arm Class
 Arm::Arm(QObject *parent) : QObject(parent)
