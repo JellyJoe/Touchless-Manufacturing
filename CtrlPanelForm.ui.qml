@@ -24,6 +24,8 @@ Item {
     property alias positionEndBackground: positionEndBackground //btnPositionEnd background
     property alias stamperBackground: stamperBackground //btnStamperPosition background
     property alias signatureBackground: signatureBackground //btnSignatureFetch background
+    property alias connectManualBackground:connectManualBackground //btnConnectManual background
+
 
 
 
@@ -36,6 +38,7 @@ Item {
 
     property alias withPumpBackground: withPumpBackground //btnMoveWithPump background
     property alias withoutPumpBackground: withoutPumpBackground //btnMoveWithoutPump background
+    property alias connectAutoBackground:connectAutoBackground //btnConnectAuto background
 
 
     //Demo process configuration (button)
@@ -97,6 +100,11 @@ Item {
                     height: 47
                     text: qsTr("Connect Arm")
                     enabled: true
+
+                    background: Rectangle {
+                        id: connectManualBackground
+                        color: "#E0E0E0"
+                    }
                 },
 
                 Button {
@@ -236,6 +244,11 @@ Item {
                             anchors.horizontalCenterOffset: -139
                             anchors.horizontalCenter: parent.horizontalCenter
                             enabled: true
+
+                            background: Rectangle {
+                                id: connectAutoBackground
+                                color: "#E0E0E0"
+                            }
                         },
 
                         Button {

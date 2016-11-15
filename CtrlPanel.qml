@@ -9,15 +9,19 @@ CtrlPanelForm {
     txtManualMoveRecord.readOnly: true
     txtManualMoveRecord.textFormat: TextEdit.RichText // for color
 
+
     //========================================================================================
     //                                      MANUAL
 
     //stop the manual process
-    btnStopArmManual.onClicked:
-    {
+    btnStopArmManual.onClicked:{
         txtManualMoveRecord.append("<font color=\"red\">MANUAL: Stopped arm movement</font>")
         _myArm.stopMovement()
+        //change the color of  start to yellow
+        connectManualBackground.color = "#E0E0E0"
+
     }
+
 
     //activate the manual process
     btnActivateArmManual.onClicked:
@@ -26,32 +30,32 @@ CtrlPanelForm {
         _myArm.executeManualMovement()
     }
 
+    /*----- Establish manual connection -----*/
+
     //establish connection with arm for manual process
-    btnConnectManual.onClicked:
-    {
+    btnConnectManual.onClicked:{
         txtManualMoveRecord.append("MANUAL: Connected arm movement")
-        _myArm.manualLuanched()
+         _myArm.manualLaunched()
+        //change button color to green
+        connectManualBackground.color = "#67f90c"
     }
+
 
 
     /*----- Move with pump button configuration -----*/
 
     //store coordinate with suction active
-    btnMoveWithPump.onClicked:
-    {
+    btnMoveWithPump.onClicked: {
         txtManualMoveRecord.append("MANUAL: Stored coordinates with suction activation")
         _myArm.saveWithPump()
     }
 
     //lighter colour onclick
-    btnMoveWithPump.onPressed:
-    {
+    btnMoveWithPump.onPressed: {
         withPumpBackground.color = "#68ccf2"
     }
-
     //original colour upon release
-    btnMoveWithPump.onReleased:
-    {
+    btnMoveWithPump.onReleased: {
         withPumpBackground.color = "#2bb9ef"
     }
 
@@ -66,14 +70,11 @@ CtrlPanelForm {
     }
 
     //lighter colour onclick
-    btnMoveWithoutPump.onPressed:
-    {
+    btnMoveWithoutPump.onPressed: {
         withoutPumpBackground.color = "#68ccf2"
     }
-
     //original colour upon release
-    btnMoveWithoutPump.onReleased:
-    {
+    btnMoveWithoutPump.onReleased: {
         withoutPumpBackground.color = "#2bb9ef"
 
     }
@@ -92,28 +93,24 @@ CtrlPanelForm {
     }
 
     //lighter colour onclick
-    btnSignatureFetch.onPressed:
-    {
+    btnSignatureFetch.onPressed: {
         signatureBackground.color = "#68ccf2"
     }
-
     //original colour upon release
-    btnSignatureFetch.onReleased:
-    {
+    btnSignatureFetch.onReleased: {
         signatureBackground.color = "#2bb9ef"
     }
+
 
     /*----- Store the stamper position -----*/
 
     //lighter colour onclick
-    btnStamperPosition.onPressed:
-    {
+    btnStamperPosition.onPressed: {
         stamperBackground.color = "#68ccf2"
-    }
 
+    }
     //original colour upon release
-    btnStamperPosition.onReleased:
-    {
+    btnStamperPosition.onReleased: {
         stamperBackground.color = "#2bb9ef"
     }
 
@@ -121,13 +118,11 @@ CtrlPanelForm {
     /*----- Store the end position -----*/
 
     //lighter colour onclick
-    btnPositionEnd.onPressed:
-    {
+    btnPositionEnd.onPressed: {
         positionEndBackground.color = "#68ccf2"
     }
     //original colour upon release
-    btnPositionEnd.onReleased:
-    {
+    btnPositionEnd.onReleased: {
         positionEndBackground.color = "#2bb9ef"
     }
 
