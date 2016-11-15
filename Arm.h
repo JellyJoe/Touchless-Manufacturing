@@ -21,7 +21,7 @@ public:
 
 public slots:
     void demoClicked();
-    void manualLuanched();
+    void manualLaunched();
     void saveWithPump();
     void saveWithoutPump();
     void executeManualMovement();

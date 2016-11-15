@@ -4,6 +4,7 @@
 #include <iostream>
 #include <QProcess>
 #include <QDir>
+#include <QDebug>
 
 Arm::Arm(QObject *parent) :
     QObject(parent)
@@ -12,16 +13,16 @@ Arm::Arm(QObject *parent) :
 
     if (ArmSp->IsConnected())
     {
-        std::cout << "Arm is connected" << endl;
+        qDebug() << "Arm is connected";
     }
     else
     {
 
-        std::cout << "Arm couldn't connect" << endl;
+        qDebug() << "Arm couldn't connect";
 
     }
 
-    outgoingData[256] = ' ';
+    outgoingData[256] = {'\0'};
     dataLength = 256;
 
 }
@@ -39,7 +40,7 @@ void Arm::demoClicked()
 
 }
 
-void Arm::manualLuanched()
+void Arm::manualLaunched()
 {
     strcpy(outgoingData,"2");
     ArmSp->WriteData(outgoingData,dataLength);
@@ -66,9 +67,6 @@ void Arm::executeManualMovement()
 
 void Arm::stopMovement()
 {
-    //exit data send
-    //strcpy(outgoingData,"e");
-    //ArmSp->WriteData(outgoingData,dataLength);
 
     delete ArmSp;
     ArmSp = new Serial((char*)"COM6");
