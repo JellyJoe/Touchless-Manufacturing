@@ -13,8 +13,8 @@ ReportForm
     //===================================================================================
     //                              MASTER REPORT
 
-    property string excel_template_filename: "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Excel_Template.xml"
-    //property string excel_template_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Excel_Template.xml"
+    //property string excel_template_filename: "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Excel_Template.xml"
+    property string excel_template_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Excel_Template.xml"
 
     //Master report button onclick
     btnMasterReport.onClicked:
@@ -28,6 +28,7 @@ ReportForm
     {
         masterReportBackground.color = "#68ccf2"
     }
+
     //original colour upon release
     btnMasterReport.onReleased:
     {
@@ -79,6 +80,7 @@ ReportForm
     {
         dateReportBackground.color = "#68ccf2"
     }
+
     //original colour upon release
     btnDateReport.onReleased:
     {

@@ -5,68 +5,78 @@ import QtQuick.Window 2.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Dialogs 1.2
 
-ApplicationWindow {
+ApplicationWindow
+{
     visible: true
     visibility: Window.FullScreen
     width: 640
     height: 480
     title: qsTr("Touchless Manufacturing")
 
-    SwipeView {
+    SwipeView
+    {
         id: swipeView
         anchors.fill: parent
         currentIndex: tabBar.currentIndex
 
-        Report{
+
+        Report
+        {
 
         }
 
-        CtrlPanel{
+        CtrlPanel
+        {
+
         }
-
-
     }
 
-    header: TabBar {
+    header: TabBar
+    {
         id: tabBar
         currentIndex: swipeView.currentIndex
 
 
-        TabButton {
+
+        TabButton
+        {
             id:btnReportView
             text: qsTr("Report View")
         }
 
-        TabButton {
+        TabButton
+        {
             id:btnControlPanel
             text: qsTr("Control Panel")
 
         }
 
-        TabButton {
+        TabButton
+        {
             id: btnExit
             text: qsTr("Exit")
 
-            MessageDialog {
+            MessageDialog
+            {
                 id: dialogExit
                 title: "Close Program"
                 icon: StandardIcon.Warning
 
                 standardButtons: StandardButton.Ok | StandardButton.Cancel
                 text: "Exit Touchless Manufacturing Application?"
-                onAccepted: {
+                onAccepted:
+                {
                     Qt.quit()
                 }
 
-                onRejected: {
+                onRejected:
+                {
+
                     tabBar.currentIndex = 0
+
                 }
             }
-
             onClicked: dialogExit.visible = true
-
-
         }
-
     }
 }

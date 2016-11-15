@@ -854,7 +854,7 @@ bool Report::generateMasterReport(QString q_EXCEL_TEMPLATE_FILENAME)
 
     string temp;
     ofstream masterFileStream;
-    masterFileStream.open("MasterReport.xml");
+    masterFileStream.open("C:\\Users\\Sukhdip\\Desktop\\MasterReport.xml");
     if(!masterFileStream) // file not found or cannot be opened
         return false;
 
@@ -875,6 +875,8 @@ bool Report::generateMasterReport(QString q_EXCEL_TEMPLATE_FILENAME)
 
     masterFileStream.close();
     tempFileStream.close();
+
+    remove("MasterReport.temp");
 
     return true;
 }

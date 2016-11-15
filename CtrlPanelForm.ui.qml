@@ -114,8 +114,8 @@ Item {
                     width: 100
                     height: 47
                     text: qsTr("Activate Arm")
-                    enabled: true
-                },
+                    enabled: false
+                    },
 
                 Button {
                     id: btnStopArmManual
@@ -124,8 +124,9 @@ Item {
                     width: 100
                     height: 47
                     text: qsTr("Stop Arm")
-                    enabled: true
-                },
+                    enabled: false
+                    checkable: false
+                    },
 
                 Button {
                     id: btnMoveWithPump
@@ -134,7 +135,7 @@ Item {
                     width: 154
                     height: 46
                     text: "Set move with pump"
-                    enabled: true
+                    enabled: false
                     autoRepeat: false
                     autoExclusive: false
                     background: Rectangle {
@@ -152,7 +153,7 @@ Item {
                     width: 154
                     height: 46
                     text: "Set move without pump"
-                    enabled: true
+                    enabled: false
                     background: Rectangle {
                         id:withoutPumpBackground
                         color: "#2bb9ef"
@@ -260,7 +261,7 @@ Item {
                             text: qsTr("Activate Arm")
                             anchors.horizontalCenterOffset: 1
                             anchors.horizontalCenter: parent.horizontalCenter
-                            enabled: true
+                            enabled: false
                         },
 
                         Button {
@@ -272,7 +273,7 @@ Item {
                             text: qsTr("Stop Arm")
                             anchors.horizontalCenterOffset: 141
                             anchors.horizontalCenter: parent.horizontalCenter
-                            enabled: true
+                            enabled: false
                         },
 
                         Button {
@@ -282,6 +283,7 @@ Item {
                             width: 113
                             height: 38
                             text: "Set"
+                            enabled: false
 
                             hoverEnabled: true;
 
@@ -312,6 +314,7 @@ Item {
                             width: 113
                             height: 38
                             text: "Set"
+                            enabled: false
                             background: Rectangle {
                                 id:stamperBackground
                                 color: "#2bb9ef"
@@ -340,6 +343,7 @@ Item {
                             width: 113
                             height: 38
                             text: "Set"
+                            enabled: false
                             background: Rectangle {
                                 id:positionEndBackground
                                 color: "#2bb9ef"
