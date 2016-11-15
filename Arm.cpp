@@ -1,3 +1,4 @@
+//Header file
 #include "Arm.h"
 #include "MyClass.h"
 #include "Serial.h"
@@ -6,69 +7,80 @@
 #include <QDir>
 #include <QDebug>
 
-Arm::Arm(QObject *parent) :
-    QObject(parent)
+int Arm::dataLength = 10;
+
+//Arm Class
+Arm::Arm(QObject *parent) : QObject(parent)
 {
+    //Arm connecting to serial port
     ArmSp = new Serial((char*)"COM6");    // adjust as needed
 
+    //If arm is connected prompt message in debug console
     if (ArmSp->IsConnected())
     {
         qDebug() << "Arm is connected";
     }
     else
     {
-
         qDebug() << "Arm couldn't connect";
-
     }
 
-    outgoingData[256] = {'\0'};
-    dataLength = 256;
-
+    //Initializing variables
+    outgoingData[MAX_OUTGOING_DATA_LENGTH] = {'\0'};
 }
 
-
+//Demo Button Function
 void Arm::demoClicked()
 {
-
+    //Sending Signal A to attach the servo
     strcpy(outgoingData,"a");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData, MAX_OUTGOING_DATA_LENGTH);
     Sleep(500);
-    strcpy(outgoingData,"1");
-    ArmSp->WriteData(outgoingData,dataLength);
-    Sleep(1000);
 
+    //Sending Signal 1 to start the demo mode
+    strcpy(outgoingData,"1");
+    ArmSp->WriteData(outgoingData, MAX_OUTGOING_DATA_LENGTH);
+    Sleep(1000);
 }
 
+//Manual Launched Function
 void Arm::manualLaunched()
 {
+    //Sending Signal 2 to start the Manual Configuration
     strcpy(outgoingData,"2");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData, MAX_OUTGOING_DATA_LENGTH);
 }
 
+//Saving the Coordinates with Pump Enable
 void Arm::saveWithPump()
 {
+    //Sending Signal S to save the coordinates
     strcpy(outgoingData,"s");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData, MAX_OUTGOING_DATA_LENGTH);
 }
 
+//Saving the Coordinates with Pump Enable
 void Arm::saveWithoutPump()
 {
+    //Sending Signal O to save the coordinates
     strcpy(outgoingData,"o");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData, MAX_OUTGOING_DATA_LENGTH);
 }
 
+//Executing Manual Movement
 void Arm::executeManualMovement()
 {
+    //Sending Signal D to execute the manual movement for the arm
     strcpy(outgoingData,"d");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData, MAX_OUTGOING_DATA_LENGTH);
 
 }
 
+//Stop the Arm from moving
 void Arm::stopMovement()
 {
-
+    //Deleting the Serial Connection
     delete ArmSp;
+    //Restarting the connection for the Arm
     ArmSp = new Serial((char*)"COM6");
 }
-
