@@ -21,12 +21,12 @@ Serial::Serial(char *portName)
         if(GetLastError()==ERROR_FILE_NOT_FOUND){
 
             //Print Error if neccessary
-            printf("ERROR: Handle was not attached. Reason: %s not available.\n", portName);
+            qDebug() << "ERROR: Handle was not attached. Reason: Port name" << portName << "not available.\n";
 
         }
         else
         {
-            printf("ERROR!!!");
+            qDebug() << "ERROR: Critical connection error! Restart application.";
         }
     }
     else
