@@ -19,7 +19,7 @@ class Report
         static bool ValidateDate(const char*);
         static bool LoadXMLFile(const char*);
         static bool SaveXMLFile(const char*);
-        static bool AddTimestamp(); // change according to data obtained from arm
+        static bool AddTimestamp(const string&, const int&, const string&, const int&); // change according to data obtained from arm
         static bool DisplaySpecificTimestamp(const string&);
         static bool DisplayAllTimestamp();
         static bool DeleteTimestamp(const string&);

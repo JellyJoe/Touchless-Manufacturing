@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <cstdlib>
 #include <fstream>
 #include "Report.h"
 
@@ -221,7 +223,9 @@ int main()
     else
         cout << "\"" << XML_STORAGE_FILENAME << "\" loaded and validated." << endl;
 
+    int year_int, month_int, day_from_int, day_to_int;
     string choice, date;
+    stringstream uptime_stringsteam, date_stringstream;
 
     do {
         cout << endl << "Report Menu" << endl;
@@ -243,12 +247,30 @@ int main()
         cout << endl;
         if(choice == "1")
         {
-            cout << "This function will be adjusted according to the data obtained from the arm." << endl;
-            cout << "For now, it will be adding fixed data." << endl;
-            if(Report::AddTimestamp() == true)
-                cout << "New timestamp has been added." << endl;
-            else
-                cout << "Use Report::LoadXMLFile() to load the XML document first." << endl;
+            // cout << "This function will be adjusted according to the data obtained from the arm." << endl;
+            // cout << "For now, it will be adding fixed data." << endl;
+
+            // validation of input is ingored as I just need to populate the arm data storage with sample data
+            cout << "Enter starting day: "; cin >> day_from_int;
+            cout << "Enter ending day: "; cin >> day_to_int;
+            cout << "Enter month: "; cin >> month_int;
+            cout << "Enter year: "; cin >> year_int;
+            cin.ignore(); cin.clear();
+
+            for(int i = day_from_int; i <= day_to_int; i++)
+            {
+                date_stringstream.str("");
+                uptime_stringsteam.str("");
+
+                date_stringstream << i << "-" << month_int << "-" << year_int;
+                uptime_stringsteam << rand() % 50 + 10 << ":" << rand() % 50 + 10 << ":" << rand() % 50 + 10;
+
+                if(Report::AddTimestamp(date_stringstream.str(), rand() % 150 + 11, uptime_stringsteam.str(), rand() % 5) == true)
+                    cout << "New timestamp has been added." << endl;
+                else
+                    cout << "Use Report::LoadXMLFile() to load the XML document first." << endl;
+            }
+            Report::SaveXMLFile("Arm_Data_Storage.xml");
         }
         else if(choice == "2")
         {

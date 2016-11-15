@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "Report.h"
 
 XMLDocument Report::doc;
@@ -529,12 +530,12 @@ bool Report::DisplayAllTimestamp()
 // AddTimestamp() currently has fixed data that it adds as a demo of the function
 // This function is to be modified when implementing to the user interface
 // returns false if user has not ran LoadXMLFile(), else it will return true
-bool Report::AddTimestamp()
+bool Report::AddTimestamp(const string& date_string, const int& processed_value_int, const string& uptime_string, const int& error_count_int = 0)
 {
+    stringstream error_message_stringstream;
+
     if(doc.RootElement() == NULL)
         return false;
-
-    int error_count_int = 2;
 
     XMLElement* arm = doc.FirstChildElement();
     XMLElement* timestamp = doc.NewElement("timestamp");
@@ -542,9 +543,9 @@ bool Report::AddTimestamp()
     XMLElement* uptime = doc.NewElement("uptime");
     XMLElement* errors = doc.NewElement("errors");
 
-    timestamp->SetAttribute("date", "12-5-2016");
-    processed->SetAttribute("value", 32);
-    uptime->SetAttribute("value", "11:22:33");
+    timestamp->SetAttribute("date", date_string.c_str());
+    processed->SetAttribute("value", processed_value_int);
+    uptime->SetAttribute("value", uptime_string.c_str());
     errors->SetAttribute("count", error_count_int);
 
     if(error_count_int > 0)
@@ -553,7 +554,9 @@ bool Report::AddTimestamp()
         for(int i = 0; i < error_count_int; i++)
         {
             error[i] = doc.NewElement("error");
-            error[i]->SetText(i + 1);
+            error_message_stringstream.str(""); // clears the stringstream
+            error_message_stringstream << "Error message " << i + 1 << ".";
+            error[i]->SetText(error_message_stringstream.str().c_str());
             errors->InsertEndChild(error[i]);
         }
     }
