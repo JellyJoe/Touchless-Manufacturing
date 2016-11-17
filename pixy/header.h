@@ -5,19 +5,15 @@
 #define ARDUINO_WAIT_TIME 2000
 #include <windows.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string>
-//#include<QObject>
 using namespace std;
-class Serial //: public QObject
+class Serial
 {
-   // Q_OBJECT
+
 private:
     //Serial comm handler
     HANDLE hSerial;
     //Connection status
     bool connected;
-    char storeData[12];
     //Get various information about the connection
     COMSTAT status;
     //Keep track of last error
@@ -39,17 +35,6 @@ public:
     bool writeData(char * buffer, unsigned int nbChar);
     //Check if we are actually connected
     bool isConnected();
-    void compareData(char receiveData[]);
-    void writeXYZ(char x[], char y[], char z[]);
-    struct Coordinates{
-        string xCoordinate;
-        string yCoordinate;
-        string zCoordinate;
-    };
-//public slots:
-    void sendCoordinates(string x, string y, string z);
-
-
 };
 
 

@@ -3,54 +3,61 @@
 #include <tchar.h>
 #include "header.h"  // Library described above
 #include <string>
+#include <cstdlib>
 #include <iostream>
 using namespace std;
 
 // application reads from the specified serial port and reports the collected data
-int main()
+int _tmain(int argc, _TCHAR* argv[])
 {
-
-    printf("Welcome to the serial test app!\n\n");
+    printf("Welcome to the Pixy Terminal app!\n\n");
     //serial port number
     Serial* SP = new Serial("\\\\.\\COM4");    // adjust as needed
-    //buffer
-    char incomingData[256] = "", writeX[256] = "", writeY[4]="", writeZ[4]="", stuff[256]="", XYZData[12];// don't forget to pre-allocate memory
+    //variables
+    char incomingData[256] = "", outgoingData[256] = "", start[256]="";//to pre-allocate memory
     string sig, sigValue, width, widthValue, x, xValue, y, yValue, z, zValue, concatXYZ;
     char * getValue;
-    string start, modify;
-    bool complete = false;
     int dataLength = 255;
-    int result = 0;
+    int result = 0, xData, yData, zData;
     int counter = 0;
-    if(SP->isConnected())
-        cout << "Connected...\n";
 
+    //if program is connected to the serial display a successful message
+    if(SP->isConnected())
+        cout << "Pixy is Connected...\n";
+    //loop if is connected
     while (SP->isConnected())
     {
-        cout << "Start reading coordinates? (Y/N): ";
-        getline(cin, start);
+        //Ask user whether he/she would want to get coordinates.
+        //if input Y means yes, program will start receive coordinates from arduino
+        //if input N means no, program will stop and terminate
+        cout << "Start getting coordinates? (Y/N): ";
+        cin >> start;
 
-        if(start == "Y")
+        if(strcmp(start,"Y")==0)//check if input is Y
         {
-            char *v = new char[start.size()+1];
-            copy(start.begin(), start.end(), v);
-            v[start.size()] = '\n';
-            SP->writeData(v, dataLength);
-            delete [] v;
-            Sleep(1000);
-            SP->readData(incomingData, dataLength);//read data in serial
-            if(incomingData[0] != 'E')
+            //send char pointer to arduino
+            strcpy(outgoingData, start);
+            SP->writeData(outgoingData, dataLength);
+            //read incoming data from arduino
+            //incoming data is in the form of "sig: value x: value y: value width: value height: value"
+            //height is z
+            //this incoming data uses the pixy print command which prints the whole pixy information in a string
+            result  = SP->readData(incomingData, dataLength);
+            if(result != 0)
             {
-                getValue = strtok(incomingData, " ");//seperate the buffer's value
-
+                //Seperate incoming data when the delimeter is a space
+                getValue = strtok(incomingData, " ");
+                //loop if the seperated incoming data is not null
                 while(getValue != NULL)
                 {
+                    //get signature display
                     if(counter == 0)//1st seperated value
                     {
                         sig = getValue;
                         counter++;//increment counter
 
                     }
+                    //get signature value
                     else if(counter == 1)//2nd seperated value
                     {
                         sigValue = getValue;
@@ -58,84 +65,76 @@ int main()
                         counter++;//increment counter
 
                     }
+                    //get x display
                     else if(counter == 2)//3rd seperated value
                     {
                         x = getValue;
-                        counter++;//reset counter
+                        counter++;//increment counter
                     }
-                    else if(counter == 3)
+                    //get x value
+                    else if(counter == 3)//4th seperated value
                     {
                         xValue = getValue;
-                        counter++;
+                        counter++;//increment counter
 
                     }
-                    else if(counter == 4)
+                    //get y display
+                    else if(counter == 4)//5th seperated value
                     {
                         y = getValue;
-                        counter ++;
+                        counter ++;//increment counter
                     }
-                    else if(counter == 5)
+                    //get y value
+                    else if(counter == 5)//6th seperated value
                     {
                         yValue = getValue;
-                        counter ++;
+                        counter ++;//increment counter
                     }
-                    else if(counter == 6)
+                    //get width display
+                    else if(counter == 6)//7th seperated value
                     {
                         width = getValue;
-                        counter ++;
+                        counter ++;//increment counter
                     }
-                    else if(counter == 7)
+                    //get width value
+                    else if(counter == 7)//8th seperated value
                     {
                         widthValue = getValue;
-                        counter ++;
+                        counter ++;//increment counter
                     }
-                    else if(counter == 8)
+                    //get z display
+                    else if(counter == 8)//9th seperated value
                     {
                         z = getValue;
-                        counter ++;
+                        counter ++;//increment counter
                     }
-                    else if(counter == 9)
+                    //get z value
+                    else if(counter == 9)//10th seperated value
                     {
                         zValue = getValue;
-                        counter=0;
+                        counter=0;//reset counter to 0
                     }
                     getValue  = strtok(NULL, " ");
-                    Sleep(100);//sleep 0.5 sec
+                    Sleep(100);//sleep 0.1 sec
 
                 }
-                cout << "x: " << xValue << " y: " << yValue << " z: " << zValue;
+                //convert the string to integer for comparison purpose
+                xData = atoi(xValue.c_str());
+                yData = atoi(yValue.c_str());
+                zData = atoi(zValue.c_str());
+                //if pixy gives out coordinates that is not within the below range set, program will display an error message
+                //if within then program will display x, y and z value
+                if(xData > 10 && yData > 10 && zData > 10)
+                {
+                    cout << "x: " << xValue << " y: " << yValue << " z: " << zValue;
+                }
+                else
+                    cout << "No object detected!" << endl;//error message of no object detected!
             }
-            else
-                cout << incomingData << endl;
-            /* if(x!="" && y != "" && z!= "")
-             {
-
-                 concatXYZ = x + " " + y + " " + z;
-                 cout << "Verifying...\n";
-                 char data[256]="";
-
-                 do
-                 {
-
-                     cout << "Enter x y z: ";
-                    getline(cin, modify);
-                     char * a = new char[modify.size()+1];
-                     copy(modify.begin(), modify.end(), a)  ;
-                     a[modify.size()] = '\n';
-                     SP->writeData(a, dataLength);
-                     Sleep(1000);
-                     SP->readData(data, dataLength);
-                     cout << data << endl;
-                     delete [] a;
-
-                 }
-                 while(modify!="0");
-
-             }*/
 
 
         }
-        else if(start == "N")
+        else if(strcmp(start, "N") == 0)//terminate program
             break;
 
     }

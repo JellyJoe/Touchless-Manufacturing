@@ -1,8 +1,5 @@
 /*PrimeDev - 2016*/
 #include "header.h"
-#include <string>
-#include <iostream>
-using namespace std;
 //Function to connect the serial port
 Serial::Serial(char *portName)
 {
@@ -140,8 +137,6 @@ bool Serial::writeData(char * buffer, unsigned int nbChar)
     }
     else
     {
-        //strcat(storeData, buffer);//store the buffer into an array
-        //strcat(storeData, " ");//store with space too
         return true;
     }
 }
@@ -151,129 +146,4 @@ bool Serial::isConnected()
     //Simply return the connection status
     return this->connected;
 }
-
-//to write xyz
-void Serial::writeXYZ(char x[], char y[], char z[])
-{
-    int length = 4;
-    if(writeData(x, length) == true)
-    {
-        if(writeData(y, length) == true)
-        {
-            if(writeData(z, length) == true)
-            {
-                cout << "X,Y and Z is written to arduino.\n";
-            }
-            else
-                cout << "Z unable to be written.\n";
-        }
-        else
-            cout << "Y unable to be written.\n";
-    }
-    else
-        cout << "X unable to be written.\n";
-}
-
-void Serial::compareData(char receiveData[])
-{
-    char * seperate1, *seperate2;
-    int counter = 0;
-    bool complete1 = false, complete2 = false;
-    string x1, x2, y1, y2, z1, z2;
-    seperate1 = strtok(receiveData, " ");
-    while(seperate1 != NULL)
-    {
-        if(counter == 0)//1st seperated value
-        {
-            x1 = seperate1;
-            counter++;//increment counter
-        }
-        else if(counter == 1)//2nd seperated value
-        {
-            y1 = seperate1;
-            counter++;//increment counter
-        }
-        else if(counter == 2)//3rd seperated value
-        {
-            z1 = seperate1;
-            counter = 0;//reset counter
-        }
-        seperate1 = strtok(NULL, " ");
-        complete1 = true;
-
-
-    }
-
-    seperate2 = strtok(storeData, " ");
-
-    while(seperate2 != NULL)
-    {
-        if(counter == 0)//1st seperated value
-        {
-            x2 = seperate2;
-            counter++;//increment counter
-        }
-        else if(counter == 1)//2nd seperated value
-        {
-            y2 = seperate2;
-            counter++;//increment counter
-        }
-        else if(counter == 2)//3rd seperated value
-        {
-            z2 = seperate2;
-            counter = 0;//reset counter
-        }
-        seperate2 = strtok(NULL, " ");
-        complete2 = true;
-    }
-
-    //compare write value with read value
-    if(complete1 == true && complete2 == true)
-    {
-        if(x1 == x2)
-        {
-            if(y1 == y2)
-            {
-                if(z1 == z2)
-                {
-                    cout << "X,Y and Z values are the same.\n";//if all same then print out a successful message
-                    cout << "X1: "<< x1 << " X2: " << x2 << endl << "Y1: " << y1 << " Y2: " << y2 << endl << "Z1: " << z1 << " Z2: " << z2 << endl;
-                    sendCoordinates(x1, y1, z1);
-                }
-                else
-                {
-                    cout << "X1: "<< x1 << " X2: " << x2 << endl << "Y1: " << y1 << " Y2: " << y2 << endl << "Z1: " << z1 << " Z2: " << z2 << endl;
-                    cout << "Z value is not same.\n";
-
-                }
-            }
-            else
-            {
-                cout << "X1: "<< x1 << " X2: " << x2 << endl << "Y1: " << y1 << " Y2: " << y2 << endl << "Z1: " << z1 << " Z2: " << z2 << endl;
-                cout << "Y value is not same.\n";
-
-            }
-        }
-        else
-        {
-            cout << "X1: "<< x1 << " X2: " << x2 << endl << "Y1: " << y1 << " Y2: " << y2 << endl << "Z1: " << z1 << " Z2: " << z2 << endl;
-            cout << "X value is not same.\n";
-
-        }
-    }
-
-}
-
-void Serial::sendCoordinates(string x, string y, string z)
-{
-    Coordinates value;
-    value.xCoordinate = x;
-    value.yCoordinate = y;
-    value.zCoordinate = z;
-    cout << value.xCoordinate << " " << value.yCoordinate << " " << value.zCoordinate << endl;
-    //emited
-}
-
-
-
 
