@@ -15,7 +15,7 @@ int _tmain(int argc, _TCHAR* argv[])
     Serial* SP = new Serial("\\\\.\\COM4");    // adjust as needed
     //variables
     char incomingData[256] = "", outgoingData[256] = "", start[256]="";//to pre-allocate memory
-    string sig, sigValue, width, widthValue, x, xValue, y, yValue, z, zValue, concatXYZ;
+    string sig, sigValue, width, widthValue, x, xValue, y, yValue, z, zValue, concatXYZ, line;
     char * getValue;
     int dataLength = 255;
     int result = 0, xData, yData, zData;
@@ -30,11 +30,12 @@ int _tmain(int argc, _TCHAR* argv[])
         //Ask user whether he/she would want to get coordinates.
         //if input Y means yes, program will start receive coordinates from arduino
         //if input N means no, program will stop and terminate
-        cout << "Start getting coordinates? (Y/N): ";
+        /*cout << "Start getting coordinates? (y/n): ";
         cin >> start;
+        Sleep(500);
 
-        if(strcmp(start,"Y")==0)//check if input is Y
-        {
+        if(strcmp(start,"y")==0)//check if input is Y
+        {*/
             //send char pointer to arduino
             strcpy(outgoingData, start);
             SP->writeData(outgoingData, dataLength);
@@ -45,97 +46,101 @@ int _tmain(int argc, _TCHAR* argv[])
             result  = SP->readData(incomingData, dataLength);
             if(result != 0)
             {
-                //Seperate incoming data when the delimeter is a space
-                getValue = strtok(incomingData, " ");
-                //loop if the seperated incoming data is not null
-                while(getValue != NULL)
-                {
-                    //get signature display
-                    if(counter == 0)//1st seperated value
-                    {
-                        sig = getValue;
-                        counter++;//increment counter
-
-                    }
-                    //get signature value
-                    else if(counter == 1)//2nd seperated value
-                    {
-                        sigValue = getValue;
-
-                        counter++;//increment counter
-
-                    }
-                    //get x display
-                    else if(counter == 2)//3rd seperated value
-                    {
-                        x = getValue;
-                        counter++;//increment counter
-                    }
-                    //get x value
-                    else if(counter == 3)//4th seperated value
-                    {
-                        xValue = getValue;
-                        counter++;//increment counter
-
-                    }
-                    //get y display
-                    else if(counter == 4)//5th seperated value
-                    {
-                        y = getValue;
-                        counter ++;//increment counter
-                    }
-                    //get y value
-                    else if(counter == 5)//6th seperated value
-                    {
-                        yValue = getValue;
-                        counter ++;//increment counter
-                    }
-                    //get width display
-                    else if(counter == 6)//7th seperated value
-                    {
-                        width = getValue;
-                        counter ++;//increment counter
-                    }
-                    //get width value
-                    else if(counter == 7)//8th seperated value
-                    {
-                        widthValue = getValue;
-                        counter ++;//increment counter
-                    }
-                    //get z display
-                    else if(counter == 8)//9th seperated value
-                    {
-                        z = getValue;
-                        counter ++;//increment counter
-                    }
-                    //get z value
-                    else if(counter == 9)//10th seperated value
-                    {
-                        zValue = getValue;
-                        counter=0;//reset counter to 0
-                    }
-                    getValue  = strtok(NULL, " ");
-                    Sleep(100);//sleep 0.1 sec
-
-                }
-                //convert the string to integer for comparison purpose
-                xData = atoi(xValue.c_str());
-                yData = atoi(yValue.c_str());
-                zData = atoi(zValue.c_str());
-                //if pixy gives out coordinates that is not within the below range set, program will display an error message
-                //if within then program will display x, y and z value
-                if(xData > 10 && yData > 10 && zData > 10)
-                {
-                    cout << "x: " << xValue << " y: " << yValue << " z: " << zValue;
-                }
+                cout << incomingData ;
+                /*if(strcmp(incomingData, "No object detected!") == 0)
+                    cout << incomingData << endl;
                 else
-                    cout << "No object detected!" << endl;//error message of no object detected!
+                {
+                    //Seperate incoming data when the delimeter is a space
+                    getValue = strtok(incomingData, " ");
+                    //loop if the seperated incoming data is not null
+                    while(getValue != NULL)
+                    {
+                        //get signature display
+                        if(counter == 0)//1st seperated value
+                        {
+                            sig = getValue;
+                            counter++;//increment counter
+
+                        }
+                        //get signature value
+                        else if(counter == 1)//2nd seperated value
+                        {
+                            sigValue = getValue;
+
+                            counter++;//increment counter
+
+                        }
+                        //get x display
+                        else if(counter == 2)//3rd seperated value
+                        {
+                            x = getValue;
+                            counter++;//increment counter
+                        }
+                        //get x value
+                        else if(counter == 3)//4th seperated value
+                        {
+                            xValue = getValue;
+                            counter++;//increment counter
+
+                        }
+                        //get y display
+                        else if(counter == 4)//5th seperated value
+                        {
+                            y = getValue;
+                            counter ++;//increment counter
+                        }
+                        //get y value
+                        else if(counter == 5)//6th seperated value
+                        {
+                            yValue = getValue;
+                            counter ++;//increment counter
+                        }
+                        //get width display
+                        else if(counter == 6)//7th seperated value
+                        {
+                            width = getValue;
+                            counter ++;//increment counter
+                        }
+                        //get width value
+                        else if(counter == 7)//8th seperated value
+                        {
+                            widthValue = getValue;
+                            counter ++;//increment counter
+                        }
+                        //get z display
+                        else if(counter == 8)//9th seperated value
+                        {
+                            z = getValue;
+                            counter ++;//increment counter
+                        }
+                        //get z value
+                        else if(counter == 9)//10th seperated value
+                        {
+                            zValue = getValue;
+                            counter=0;//reset counter to 0
+                        }
+
+                        getValue  = strtok(NULL, " ");
+                        Sleep(100);//sleep 0.1 sec
+
+                    }
+                    //convert the string to integer for comparison purpose
+                    xData = atoi(xValue.c_str());
+                    yData = atoi(yValue.c_str());
+                    zData = atoi(zValue.c_str());
+                    //if pixy values are above the state range than print the coordinates
+                    cout << "x: " << xValue << " y: " << yValue << " z: " << zValue;
+                }*/
+
             }
 
 
-        }
-        else if(strcmp(start, "N") == 0)//terminate program
-            break;
+        /*}
+        else if(strcmp(start, "n") == 0)
+            break;*/
+
+        Sleep(500);
 
     }
 
