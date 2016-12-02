@@ -21,9 +21,8 @@ void loop()
   //read if there is any blocks detected
   blocks = pixy.getBlocks();
   //if blocks is detected it will return value of 1
-  if (blocks)
+  if (blocks == 2)
   {
-
     //check for user input
     //    if (Serial.available() > 0)
     //    {
@@ -35,8 +34,10 @@ void loop()
     //{
     //          pixy.blocks[0].print();//display pixy information
     //          pixy.blocks[1].print();
+
     Serial.println("T");
-    delay(1000);
+    delay(500);
+
 
     // }
 
@@ -49,7 +50,7 @@ void loop()
   {
     delay(20);//make a delay of 20ms because a frame take 20ms to process
     blocks = pixy.getBlocks();
-    if (blocks)//when blocks is not 0
+    if (blocks == 2)//when blocks is not 0
     {
       //check if there is any input from user
       //      if (Serial.available() > 0)
@@ -62,7 +63,7 @@ void loop()
       //            //            pixy.blocks[0].print();//display pixy information
       //            pixy.blocks[1].print();
       Serial.println("T");
-      delay(1000);
+      delay(500);
       //}
 
       // }
@@ -70,17 +71,10 @@ void loop()
 
     else
     {
+
       Serial.println("F");
-      delay(1000);
-      //      //check if there is any input from user
-      //      if (Serial.available() > 0)
-      //      {
-      //        input = Serial.read();
-      //        if (input == 'y')
-      //        {
-      //
-      //        }
-      //      }
+      delay(500);
+
     }
 
   }
