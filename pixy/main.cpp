@@ -44,9 +44,10 @@ int _tmain(int argc, _TCHAR* argv[])
             //height is z
             //this incoming data uses the pixy print command which prints the whole pixy information in a string
             result  = SP->readData(incomingData, dataLength);
+            Sleep(1000);
             if(result != 0)
             {
-                cout << incomingData ;
+                cout << incomingData;
                 /*if(strcmp(incomingData, "No object detected!") == 0)
                     cout << incomingData << endl;
                 else
@@ -140,7 +141,7 @@ int _tmain(int argc, _TCHAR* argv[])
         else if(strcmp(start, "n") == 0)
             break;*/
 
-        Sleep(500);
+       // Sleep(500);
 
     }
 
