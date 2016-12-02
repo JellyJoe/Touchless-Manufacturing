@@ -8,7 +8,6 @@ void setup()
 {
   Serial.begin(9600);
   pixy.init();//initialize the pixy
-
 }
 
 void loop()
@@ -24,20 +23,27 @@ void loop()
   //if blocks is detected it will return value of 1
   if (blocks)
   {
-    if (pixy.blocks[0].signature == 1)//check if pixy detected signature is 1
-    {
-      //check for user input
-      if (Serial.available() > 0)
-      {
-        input = Serial.read();
-        if (input == 'Y')
-        {
-          pixy.blocks[0].print();//display pixy information
-        }
 
-      }
-    }
+    //check for user input
+    //    if (Serial.available() > 0)
+    //    {
+    //      input = Serial.read();
+    //      if (input == 'y')
+    //      {
+
+    //if (pixy.blocks[0].signature == 1 && pixy.blocks[1].signature == 3) //check if pixy detected signature is 1
+    //{
+    //          pixy.blocks[0].print();//display pixy information
+    //          pixy.blocks[1].print();
+    Serial.println("T");
+    delay(1000);
+
+    // }
+
+    //}
   }
+
+
   //if not detected continue to read  because the blocks return value 0 can be means there is stale data and not means by no object detected
   else
   {
@@ -45,36 +51,41 @@ void loop()
     blocks = pixy.getBlocks();
     if (blocks)//when blocks is not 0
     {
-      
-      if (pixy.blocks[0].signature == 1)//check if pixy detected signature is 1
-      {
-        //check if there is any input from user
-        if (Serial.available() > 0)
-        {
-          input = Serial.read();
-          if (input == 'Y')
-          {
-            pixy.blocks[0].print();//display pixy information
-          }
-         
-        }
-      }
+      //check if there is any input from user
+      //      if (Serial.available() > 0)
+      //      {
+      //        input = Serial.read();
+      //        if (input == 'y')
+      //        {
+      //          if (pixy.blocks[0].signature == 1 && pixy.blocks[1].signature == 3) //check if pixy detected signature is 1
+      //          {
+      //            //            pixy.blocks[0].print();//display pixy information
+      //            pixy.blocks[1].print();
+      Serial.println("T");
+      delay(1000);
+      //}
+
+      // }
     }
+
     else
     {
-      //check if there is any input from user
-      if (Serial.available() > 0)
-      {
-        input = Serial.read();
-        if (input == 'Y')
-        {
-          pixy.blocks[0].print();//display the pixy information
-        }
-
-      }
+      Serial.println("F");
+      delay(1000);
+      //      //check if there is any input from user
+      //      if (Serial.available() > 0)
+      //      {
+      //        input = Serial.read();
+      //        if (input == 'y')
+      //        {
+      //
+      //        }
+      //      }
     }
 
   }
+
+
 
 }
 
