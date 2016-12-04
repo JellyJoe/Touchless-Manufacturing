@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "Report.h"
 
 bool Report::IsDigitString(const string& number)
@@ -567,12 +568,14 @@ bool Report::DisplayAllTimestamp()
 
 // SaveXMLFile() saves the current XMLDocument into the file XML_STORAGE_FILENAME
 // returns false if user has not ran LoadXMLFile() before or it encountered an error saving the file
-bool Report::SaveXMLFile(const char* XML_STORAGE_FILENAME)
+bool Report::saveXMLFile(QString fileName)
 {
+    string XML_STORAGE_FILENAME = fileName.toLocal8Bit().constData();
+
     if(doc.RootElement() == NULL)
         return false;
 
-    if(doc.SaveFile(XML_STORAGE_FILENAME) != 0)
+    if(doc.SaveFile(XML_STORAGE_FILENAME.c_str()) != 0)
         return false;
 
     return true;
@@ -854,7 +857,7 @@ bool Report::generateMasterReport(QString q_EXCEL_TEMPLATE_FILENAME)
 
     string temp;
     ofstream masterFileStream;
-    masterFileStream.open("C:\\Users\\Sukhdip\\Desktop\\MasterReport.xml");
+    masterFileStream.open("C:\\Users\\Joe\\Desktop\\MasterReport.xml");
     if(!masterFileStream) // file not found or cannot be opened
         return false;
 
@@ -879,4 +882,116 @@ bool Report::generateMasterReport(QString q_EXCEL_TEMPLATE_FILENAME)
     remove("MasterReport.temp");
 
     return true;
+}
+
+bool Report::updateTimestamp(QString qDate, int uptime_int, int processed_value_int)
+{
+    string date_string = qDate.toLocal8Bit().constData();
+    stringstream ss;
+
+    if(doc.RootElement() == NULL)
+        return false;
+
+    if(Report::isTimestampExist(date_string) == false)
+    {
+        XMLElement* arm = doc.FirstChildElement();
+        XMLElement* timestamp = doc.NewElement("timestamp");
+        XMLElement* processed = doc.NewElement("processed");
+        XMLElement* uptime = doc.NewElement("uptime");
+        XMLElement* errors = doc.NewElement("errors");
+
+        int totalSeconds = uptime_int / 1000;
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds / 60) - (hours * 60);
+        int seconds = totalSeconds % 60;
+        ss.str("");
+        ss << hours << ":" << minutes << ":" << seconds;
+
+        timestamp->SetAttribute("date", date_string.c_str());
+        processed->SetAttribute("value", processed_value_int);
+        uptime->SetAttribute("value", ss.str().c_str());
+        errors->SetAttribute("count", 0);
+
+        timestamp->InsertEndChild(processed);
+        timestamp->InsertEndChild(uptime);
+        timestamp->InsertEndChild(errors);
+        arm->InsertEndChild(timestamp);
+    }
+    else
+    {
+        XMLElement* timestamp = doc.FirstChildElement()->FirstChildElement();
+        XMLElement* processed = NULL;
+        XMLElement* uptime = NULL;
+        XMLElement* errors = NULL;
+
+        while(timestamp != NULL) // iterates through the whole timestamp record
+        {
+            if(strcmp(timestamp->Attribute("date"), date_string.c_str()) == 0) // if the date matches the timestamp
+            {
+                processed = timestamp->FirstChildElement("processed");
+                uptime = processed->NextSiblingElement("uptime");
+                errors = uptime->NextSiblingElement("errors");
+
+                int retrieved_processed = processed->IntAttribute("processed");
+                processed->SetAttribute("value", (retrieved_processed + processed_value_int));
+
+                string retrived_uptime(uptime->Attribute("value"));
+                string retrived_hours = retrived_uptime.substr(0, retrived_uptime.find(':') + 1);
+                string retrived_minute_and_second = retrived_uptime.substr(retrived_uptime.find(':') + 1);
+                string retrived_minute = retrived_minute_and_second.substr(0, retrived_minute_and_second.find(':') + 1);
+                string retrived_second = retrived_minute_and_second.substr(retrived_minute_and_second.find(':') + 1);
+
+                ss.str(""); ss << retrived_hours;
+                int retrived_hours_int;
+                ss >> retrived_hours_int;
+
+                ss.str(""); ss << retrived_minute;
+                int retrived_minute_int;
+                ss >> retrived_minute_int;
+
+                ss.str(""); ss << retrived_second;
+                int retrived_second_int;
+                ss >> retrived_second_int;
+
+                int total_second = (retrived_hours_int * 60 * 60) + (retrived_minute_int * 60) + retrived_second_int;
+                total_second = total_second + (uptime_int / 1000);
+
+                int hours = total_second / 3600;
+                int minutes = (total_second / 60) - (hours * 60);
+                int seconds = total_second % 60;
+                stringstream new_ss;
+                new_ss << hours << ":" << minutes << ":" << seconds;
+                uptime->SetAttribute("value", new_ss.str().c_str());
+
+                return true;
+            }
+
+            timestamp = timestamp->NextSiblingElement();
+        }
+    }
+
+    return true;
+}
+
+bool Report::isTimestampExist(const string& date)
+{
+    if(doc.RootElement() == NULL)
+        return false;
+
+    if(ValidateDate(date.c_str()) == false)
+        return false;
+
+    XMLElement* timestamp = doc.FirstChildElement()->FirstChildElement();
+
+    while(timestamp != NULL) // iterates through the whole timestamp record
+    {
+        if(strcmp(timestamp->Attribute("date"), date.c_str()) == 0) // if the date matches the timestamp
+        {
+            return true;
+        }
+
+        timestamp = timestamp->NextSiblingElement();
+    }
+
+    return false;
 }

@@ -21,18 +21,19 @@ class Report : public QObject
         bool ValidateUptime(const char*);
         bool ValidateXMLContent();
         bool ValidateDate(const char*);
+        bool isTimestampExist(const string&);
 
     public:
         Report() {}
         bool LoadXMLFile(const char*);
-        bool SaveXMLFile(const char*);
-        //bool AddTimestamp(); // change according to data obtained from arm
         bool DisplayAllTimestamp();
         bool DeleteTimestamp(const string&);
 
     public slots:
         bool displaySpecificTimestamp(QString);
         bool generateMasterReport(QString);
+        bool updateTimestamp(QString, int, int);
+        bool saveXMLFile(QString);
 
     signals:
         void sendTimestampData(QString processed, QString uptime, QString errorCount);

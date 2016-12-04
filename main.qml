@@ -79,10 +79,13 @@ ApplicationWindow
                     date = Qt.formatDateTime(new Date(), "dd-MM-yyyy")
 
                     //call report function to update process details
-                    //_report.updateTimestamp(date,elapsedTime,cycleCount)
+                    _report.updateTimestamp(date, elapsedTime, cycleCount)
 
                     //debug value
                     console.debug(" ", cycleCount, " ", elapsedTime, " ", date)
+
+                    // saves the loaded xml file
+                    _report.saveXMLFile("C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml")
 
 
                     //delete the arm instance to disconnect and stop arm
