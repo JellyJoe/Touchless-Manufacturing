@@ -13,6 +13,8 @@ ApplicationWindow
     height: 480
     title: qsTr("Touchless Manufacturing")
 
+    property string xml_data_storage_filename: "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Arm_Data_Storage.xml"
+    //property string xml_data_storage_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml"
 
     property int cycleCount
     property int elapsedTime
@@ -85,7 +87,7 @@ ApplicationWindow
                     console.debug(" ", cycleCount, " ", elapsedTime, " ", date)
 
                     // saves the loaded xml file
-                    _report.saveXMLFile("C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml")
+                    _report.saveXMLFile(xml_data_storage_filename)
 
 
                     //delete the arm instance to disconnect and stop arm
