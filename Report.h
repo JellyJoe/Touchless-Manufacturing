@@ -7,7 +7,6 @@
 #include <QProcess>
 #include "tinyxml2.h"
 
-
 using namespace std;
 using namespace tinyxml2;
 
@@ -17,17 +16,15 @@ class Report : public QObject
 
     private:
         tinyxml2::XMLDocument doc;
-        bool IsDigitString(const string&);
-        bool ValidateUptime(const char*);
-        bool ValidateXMLContent();
-        bool ValidateDate(const char*);
+        bool isDigitString(const string&);
         bool isTimestampExist(const string&);
+        bool validateUptime(const char*);
+        bool validateXMLContent();
+        bool validateDate(const char*);
 
     public:
         Report() {}
-        bool LoadXMLFile(const char*);
-        bool DisplayAllTimestamp();
-        bool DeleteTimestamp(const string&);
+        bool loadXMLFile(const char*);
 
     public slots:
         bool displaySpecificTimestamp(QString);
