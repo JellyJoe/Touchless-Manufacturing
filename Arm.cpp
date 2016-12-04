@@ -10,7 +10,7 @@
 
 //Arm Class
 Arm::Arm(QObject *parent) : QObject(parent)
-{
+{   
     //Arm connecting to serial port
     ArmSp = new Serial((char*)"COM6");    // adjust as needed
 
@@ -26,6 +26,9 @@ Arm::Arm(QObject *parent) : QObject(parent)
 
     //Initializing variables
     outgoingData[MAX_OUTGOING_DATA_LENGTH] = {'\0'};
+    incomingData[MAX_OUTGOING_DATA_LENGTH] = {'\0'};
+    cycle = 0;
+
 }
 
 //Demo Button Function
@@ -73,6 +76,49 @@ void Arm::executeManualMovement()
     strcpy(outgoingData,"d");
     ArmSp->WriteData(outgoingData, MAX_OUTGOING_DATA_LENGTH);
 
+}
+
+//Saving Position A
+void Arm::setPositionA()
+{
+    strcpy(outgoingData,"A");
+    ArmSp->WriteData(outgoingData,dataLength);
+}
+
+//Saving Position B
+void Arm::setPositionB()
+{
+    strcpy(outgoingData,"b");
+    ArmSp->WriteData(outgoingData,dataLength);
+}
+
+//Saving Position C
+void Arm::setPositionC()
+{
+    strcpy(outgoingData,"c");
+    ArmSp->WriteData(outgoingData,dataLength);
+}
+
+//Saving Height of the Object
+void Arm::setHeight()
+{
+    strcpy(outgoingData,"h");
+    ArmSp->WriteData(outgoingData,dataLength);
+}
+
+//Execute Auto Arm Movement
+void Arm::executeAutoMovement()
+{
+    strcpy(outgoingData,"e");
+    ArmSp->WriteData(outgoingData,dataLength);
+    do
+    {
+        int result=0;
+        result = ArmSp->ReadData(incomingData, dataLength);
+        incomingData[result] = '\0';
+    }
+    while(incomingData[0]!='D');
+    cycle++;
 }
 
 //Stop the Arm from moving

@@ -151,6 +151,7 @@ CtrlPanelForm
     /*----- Auto activate button configuration  -----*/
     btnActivateArmAuto.onClicked:
     {
+        _myArm.executeTime()
         txtManualMoveRecord.append("Auto: Activated arm movement")
     }
 

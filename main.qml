@@ -13,6 +13,11 @@ ApplicationWindow
     height: 480
     title: qsTr("Touchless Manufacturing")
 
+
+    property int cycleCount
+    property int elapsedTime
+    property string date
+
     SwipeView
     {
         id: swipeView
@@ -66,6 +71,23 @@ ApplicationWindow
                 text: "Exit Touchless Manufacturing Application?"
                 onAccepted:
                 {
+                    //get the cycle count from Arm class
+                    cycleCount = _myArm.getCycle()
+                    //get elapsed time in milliseconds from Arm class
+                    elapsedTime = _myArm.getElapsedTime()
+                    //get current date
+                    date = Qt.formatDateTime(new Date(), "dd-MM-yyyy")
+
+                    //call report function to update process details
+                    //_report.updateTimestamp(date,elapsedTime,cycleCount)
+
+                    //debug value
+                    console.debug(" ", cycleCount, " ", elapsedTime, " ", date)
+
+
+                    //delete the arm instance to disconnect and stop arm
+                    delete _myArm
+
                     Qt.quit()
                 }
 
