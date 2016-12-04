@@ -40,3 +40,6 @@ debug/
 release/
 object_script.*.Debug
 object_script.*.Release
+
+# Temp files
+MasterReport.temp
