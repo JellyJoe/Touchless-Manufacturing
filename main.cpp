@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     Report report;
     engine.rootContext()->setContextProperty("_report", &report);
 
-    if(report.LoadXMLFile(XML_DATA_STORAGE) == true)
+    if(report.loadXMLFile(XML_DATA_STORAGE) == true)
         qDebug() << "Successfully loaded XML file.";
     else
         qDebug() << "Failed to load XML file.";
