@@ -31,16 +31,12 @@ int _tmain(int argc, _TCHAR* argv[])
         {
             strcpy(outgoingData,"a");
             ArmSp->WriteData(outgoingData,dataLength);
-            Sleep(1000);
+
             strcpy(outgoingData,command);
             ArmSp->WriteData(outgoingData,dataLength);
         }
         else if(strcmp(command,"2") == 0)
         {
-            strcpy(outgoingData,command);
-            ArmSp->WriteData(outgoingData,dataLength);
-            ArmSp->ReadData(incomingData,dataLength);
-            char data[256]="";
             char position[1];
             do
             {
@@ -50,44 +46,60 @@ int _tmain(int argc, _TCHAR* argv[])
                 cin >> position[0];
                 strcpy(outgoingData,position);
                 ArmSp->WriteData(outgoingData,dataLength);
-                cout << position << endl;
-                Sleep(1000);
-                //ArmSp->ReadData(data,dataLength);
-                //cout << data << endl;
 
             }
             while(position[0] != 'd');
-
         }
 
         else if(strcmp(command,"3") == 0)
         {
             char position[1];
-            /*strcpy(outgoingData,command);
-            ArmSp->WriteData(outgoingData,dataLength);
-            ArmSp->ReadData(incomingData,dataLength);
+            char data[256];
+
             do
             {
+                cout << "A.Set Object Position" << endl;
                 cout << "B.Set Stamper Position" << endl;
-                cout << "O.Without Pump" << endl;
-                cout << "D.Done" << endl;
+                cout << "C.Set End Position" << endl;
+                cout << "H.Enter Height" << endl;
+                cout << "E.Execute" << endl;
                 cin >> position[0];
+
                 strcpy(outgoingData,position);
                 ArmSp->WriteData(outgoingData,dataLength);
-                cout << position << endl;
-                Sleep(1000);
-                ArmSp->ReadData(data,dataLength);
-                cout << data << endl;
+
 
             }
-            while(position[0] != 'd');*/
+            while(position[0] != 'e');
+
+            do
+            {
+                int result;
+                result = ArmSp->ReadData(incomingData, dataLength);
+                incomingData[result] = '\0';
+            }
+            while(incomingData[0]!='D');/*
             int result;
             result = ArmSp->ReadData(incomingData, dataLength);
             incomingData[result] = '\0';
             cout << "X:";
             Sleep(500);
-            cout << incomingData << endl;
+            cout << incomingData << endl;*/
 
+        }
+
+        else if(strcmp(command,"h") == 0)
+        {
+            float height;
+            outgoingData[0] = 'h';
+            ArmSp->WriteData(outgoingData,dataLength);
+            //ArmSp->ReadData(incomingData,dataLength);
+            cin.ignore();
+            cout << "Enter Height:";
+            cin >> height;
+            ArmSp->WriteDataFloat(height,dataLength);
+            cout << height << endl;
+            Sleep(1000);
         }
 
     }

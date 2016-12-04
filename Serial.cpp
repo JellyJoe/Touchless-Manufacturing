@@ -142,3 +142,16 @@ bool Serial::IsConnected()
     //Simply return the connection status
     return this->connected;
 }
+
+bool Serial::WriteDataFloat(float buffer, unsigned int nbChar)
+{
+    DWORD bytesSend;
+    if (!WriteFile(this->hSerial, (LPVOID)&buffer, nbChar, &bytesSend, 0))
+    {
+
+        ClearCommError(this->hSerial, &this->errors, &this->status);
+        return false;
+    }
+    else
+        return true;
+}

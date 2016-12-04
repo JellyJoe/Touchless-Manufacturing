@@ -32,6 +32,7 @@ class Serial
         //Writes data from a buffer through the Serial connection
         //return true on success.
         bool WriteData(char *buffer, unsigned int nbChar);
+        bool WriteDataFloat(float buffer, unsigned int nbChar);
         //Check if we are actually connected
         bool IsConnected();
 

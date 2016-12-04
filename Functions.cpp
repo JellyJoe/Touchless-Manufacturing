@@ -16,7 +16,9 @@ Arm::Arm(QObject *parent) :
     }
 
     outgoingData[256] = "";
+    incomingData[256] = "";
     dataLength = 256;
+    cycle = 0;
 
 }
 
@@ -56,6 +58,45 @@ void Arm::executeManualMovement()
     strcpy(outgoingData,"d");
     ArmSp->WriteData(outgoingData,dataLength);
 
+}
+
+void Arm::setPositionA()
+{
+    strcpy(outgoingData,"A");
+    ArmSp->WriteData(outgoingData,dataLength);
+}
+
+void Arm::setPositionB()
+{
+    strcpy(outgoingData,"b");
+    ArmSp->WriteData(outgoingData,dataLength);
+}
+
+
+void Arm::setPositionC()
+{
+    strcpy(outgoingData,"c");
+    ArmSp->WriteData(outgoingData,dataLength);
+}
+
+void Arm::setHeight()
+{
+    strcpy(outgoingData,"h");
+    ArmSp->WriteData(outgoingData,dataLength);
+}
+
+void Arm::executeAutoMovement()
+{
+    strcpy(outgoingData,"e");
+    ArmSp->WriteData(outgoingData,dataLength);
+    do
+    {
+        int result=0;
+        result = ArmSp->ReadData(incomingData, dataLength);
+        incomingData[result] = '\0';
+    }
+    while(incomingData[0]!='D');
+    cycle++;
 }
 
 void Arm::stopMovement()

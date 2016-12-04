@@ -4,7 +4,9 @@ class Arm : public QObject
 
 private:
     char outgoingData[256];
+    char incomingData[256];
     int dataLength;
+    int cycle;
 
 public:
 
@@ -17,5 +19,10 @@ public slots:
     void saveWithPump();
     void saveWithoutPump();
     void executeManualMovement();
+    void setPositionA();
+    void setPositionB();
+    void setPositionC();
+    void setHeight();
+    void executeAutoMovement();
     void stopMovement();
 };
