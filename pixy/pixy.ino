@@ -7,7 +7,8 @@ Pixy pixy;
 void setup()
 {
   Serial.begin(9600);
-  delay(1000);
+  //wait for user input
+  while(Serial.available() == 0){}
   pixy.init();//initialize the pixy
 }
 
