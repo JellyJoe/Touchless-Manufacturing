@@ -7,6 +7,8 @@ Item {
     id: item3
     width: 1280
     height: 720
+    property alias btnHeightFetch: btnHeightFetch
+    property alias btnPositionStart: btnPositionStart
     property alias txtManualMoveRecord: txtManualMoveRecord
 
     //=======================================================================================================
@@ -21,11 +23,12 @@ Item {
     property alias btnStamperPosition: btnStamperPosition //get the stamper position
     property alias btnPositionEnd: btnPositionEnd //get the end placement position
 
-    property alias positionEndBackground: positionEndBackground //btnPositionEnd background
+    property alias positionStartBackground: positionStartBackground //btnPositionStart background
     property alias stamperBackground: stamperBackground //btnStamperPosition background
+    property alias positionEndBackground: positionEndBackground //btnPositionEnd background
     property alias signatureBackground: signatureBackground //btnSignatureFetch background
+    property alias heightBackground: heightBackground //btnHeightFetch background
     property alias connectManualBackground:connectManualBackground //btnConnectManual background
-
 
 
 
@@ -197,7 +200,7 @@ Item {
                         text: "Click to save coordinate<br> without suction"
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignLeft
-                        font.pixelSize: 19
+                        font.pixelSize: 20
                         styleColor: "#00000000"
                         wrapMode: Text.WordWrap
                     },
@@ -211,7 +214,7 @@ Item {
                         color: "#ffffff"
                         text: "Click to save coordinate <br>with suction activated"
                         verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: 19
+                        font.pixelSize: 20
                         styleColor: "#00000000"
                         horizontalAlignment: Text.AlignLeft
                         wrapMode: Text.WordWrap
@@ -231,6 +234,7 @@ Item {
 
                 GroupBox {
                     id: boxAutoConfig
+                    width: 650
                     Layout.fillWidth: true
                     Layout.preferredHeight: 273
                     Layout.preferredWidth: 455
@@ -269,7 +273,7 @@ Item {
                             width: 100
                             height: 47
                             text: qsTr("Activate Arm")
-                            anchors.horizontalCenterOffset: 1
+                            anchors.horizontalCenterOffset: 0
                             anchors.horizontalCenter: parent.horizontalCenter
                             enabled: false
                         },
@@ -287,12 +291,43 @@ Item {
                         },
 
                         Button {
-                            id: btnSignatureFetch
-                            x: 330
-                            y: 20
+                            id: btnHeightFetch
+                            x: 318
+                            y: 40
                             width: 113
                             height: 38
-                            text: "Set"
+                            text: "Set Height"
+                            enabled: false
+
+                            hoverEnabled: true;
+
+                            background: Rectangle {
+                                id:heightBackground
+                                color: "#2bb9ef"
+                                radius: 20
+                                border.width: 2
+
+                            }
+
+                        },
+                        Text {
+                            id: txtHeightFetch
+                            x: 304
+                            y: 12
+                            color: "#ffffff"
+                            text: "Set Item Height"
+                            wrapMode: Text.WordWrap
+                            font.pixelSize: 20
+                            styleColor: "#00000000"
+                        },
+
+                        Button {
+                            id: btnSignatureFetch
+                            x: 158
+                            y: 39
+                            width: 113
+                            height: 38
+                            text: "Set Signature"
                             enabled: false
 
                             hoverEnabled: true;
@@ -308,22 +343,43 @@ Item {
                         },
                         Text {
                             id: txtSignatureFetch
-                            x: 49
-                            y: 23
+                            x: 139
+                            y: 12
                             color: "#ffffff"
-                            text: "Fetch Item Signature"
+                            text: "Fetch Signature"
                             wrapMode: Text.WordWrap
-                            font.pixelSize: 25
+                            font.pixelSize: 20
                             styleColor: "#00000000"
                         },
 
                         Button {
-                            id: btnStamperPosition
-                            x: 330
-                            y: 74
+                            id: btnPositionStart
+                            x: 94
+                            y: 121
                             width: 113
                             height: 38
-                            text: "Set"
+                            text: "Start Point"
+                            enabled: false
+
+                            hoverEnabled: true;
+
+                            background: Rectangle {
+                                id:positionStartBackground
+                                color: "#2bb9ef"
+                                radius: 20
+                                border.width: 2
+
+                            }
+
+                        },
+
+                        Button {
+                            id: btnStamperPosition
+                            x: 232
+                            y: 121
+                            width: 113
+                            height: 38
+                            text: "Stamper Point"
                             enabled: false
                             background: Rectangle {
                                 id:stamperBackground
@@ -335,24 +391,13 @@ Item {
 
 
                         },
-                        Text {
-                            id: txtStamperPosition
-                            x: 49
-                            y: 77
-                            color: "#ffffff"
-                            text: "Set Stamper Position"
-                            verticalAlignment: Text.AlignVCenter
-                            wrapMode: Text.WordWrap
-                            font.pixelSize: 25
-                            styleColor: "#00000000"
-                        },
                         Button {
                             id: btnPositionEnd
-                            x: 330
-                            y: 127
+                            x: 374
+                            y: 121
                             width: 113
                             height: 38
-                            text: "Set"
+                            text: "End Point"
                             enabled: false
                             background: Rectangle {
                                 id:positionEndBackground
@@ -362,13 +407,13 @@ Item {
                             }
                         },
                         Text {
-                            id: txtPositionEnd
-                            x: 49
-                            y: 127
+                            id: txtPositions
+                            x: 183
+                            y: 90
                             color: "#ffffff"
-                            text: "Set End Position"
+                            text: "Set Movement Positions"
                             wrapMode: Text.WordWrap
-                            font.pixelSize: 25
+                            font.pixelSize: 20
                             styleColor: "#00000000"
                         }
                     ]
@@ -376,7 +421,9 @@ Item {
 
                 GroupBox {
                     id: boxTroubleshoot
-                    Layout.fillWidth: true
+                    width: 442
+                    Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+                    Layout.fillWidth: false
                     Layout.preferredHeight: 273
                     Layout.preferredWidth: 468
                     topPadding: 20

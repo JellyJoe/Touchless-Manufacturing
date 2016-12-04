@@ -35,6 +35,8 @@ CtrlPanelForm
         btnStamperPosition.enabled = false
         btnPositionEnd.enabled = false
         btnStopArmAuto.enabled = false
+        btnPositionStart.enabled = false
+        btnHeightFetch.enabled = false
 
         //disable the auto and demo button
         btnConnectAuto.enabled = false
@@ -45,7 +47,6 @@ CtrlPanelForm
         btnStopArmManual.enabled = true
         btnMoveWithPump.enabled =  true
         btnMoveWithoutPump.enabled = true
-        btnStopArmManual.enabled = true
 
     }
 
@@ -133,7 +134,6 @@ CtrlPanelForm
         btnStopArmManual.enabled = false
         btnMoveWithPump.enabled =  false
         btnMoveWithoutPump.enabled = false
-        btnStopArmManual.enabled = false
 
         //disable the manual and demo button
         btnConnectManual.enabled = false
@@ -145,6 +145,8 @@ CtrlPanelForm
         btnStamperPosition.enabled = true
         btnPositionEnd.enabled = true
         btnStopArmAuto.enabled = true
+        btnPositionStart.enabled = true
+        btnHeightFetch.enabled = true
 
     }
 
@@ -186,6 +188,39 @@ CtrlPanelForm
     btnSignatureFetch.onReleased:
     {
         signatureBackground.color = "#2bb9ef"
+    }
+
+    /*----- Height button configuration -----*/
+
+    //onclick
+    btnHeightFetch.onClicked:
+    {
+        txtManualMoveRecord.append("AUTOMATIC: Height assign")
+    }
+
+    //lighter colour onclick
+    btnHeightFetch.onPressed:
+    {
+        heightBackground.color = "#68ccf2"
+    }
+
+    //original colour upon release
+    btnHeightFetch.onReleased:
+    {
+        heightBackground.color = "#2bb9ef"
+    }
+
+    /*----- Store the start position -----*/
+
+    //lighter colour onclick
+    btnPositionStart.onPressed:
+    {
+        positionStartBackground.color = "#68ccf2"
+    }
+    //original colour upon release
+    btnPositionStart.onReleased:
+    {
+        positionStartBackground.color = "#2bb9ef"
     }
 
     /*----- Store the stamper position -----*/
