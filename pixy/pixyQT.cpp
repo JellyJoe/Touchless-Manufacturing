@@ -12,20 +12,32 @@ Pixy::Pixy(QObject * parent) :
         std::cout << "Pixy couldn't connect" << endl;
     }
     incomingData[2] = "";
+    outgoingData[2] = "";
     dataLength = 2;
 }
 
+//Execute pixy by entering y
 void Pixy::getBlocks()
 {
+    strcpy(outgoingData, "y");
+    SP->WriteData(outgoingData, dataLength);
+}
+
+//Retrieve value from pixy and check if value receive is "T" means blocks detected and return true
+//else return false
+bool Pixy::checkBlocks()
+{
     int result = 0;
-    result  = SP->readData(incomingData, dataLength);
-    if(result != 0)
+    while(strcmp(outgoingData, "y") == 0)
     {
-        cout << incomingData << endl;
-        for(int i = 0; i < sizeof(incomingData); i++)
+        result  = SP->ReadData(incomingData, dataLength);
+        if(result != 0)
         {
-            incomingData[i] = '\0';
+            if(strcmp(incomingData, "T") == 0)
+                return true;
+            else
+                return false;
         }
+        Sleep(500);
     }
-    Sleep(500);
 }
