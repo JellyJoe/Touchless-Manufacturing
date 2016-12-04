@@ -82,39 +82,39 @@ void Arm::executeManualMovement()
 void Arm::setPositionA()
 {
     strcpy(outgoingData,"A");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData,MAX_OUTGOING_DATA_LENGTH);
 }
 
 //Saving Position B
 void Arm::setPositionB()
 {
     strcpy(outgoingData,"b");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData,MAX_OUTGOING_DATA_LENGTH);
 }
 
 //Saving Position C
 void Arm::setPositionC()
 {
     strcpy(outgoingData,"c");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData,MAX_OUTGOING_DATA_LENGTH);
 }
 
 //Saving Height of the Object
 void Arm::setHeight()
 {
     strcpy(outgoingData,"h");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData,MAX_OUTGOING_DATA_LENGTH);
 }
 
 //Execute Auto Arm Movement
 void Arm::executeAutoMovement()
 {
     strcpy(outgoingData,"e");
-    ArmSp->WriteData(outgoingData,dataLength);
+    ArmSp->WriteData(outgoingData,MAX_OUTGOING_DATA_LENGTH);
     do
     {
         int result=0;
-        result = ArmSp->ReadData(incomingData, dataLength);
+        result = ArmSp->ReadData(incomingData, MAX_OUTGOING_DATA_LENGTH);
         incomingData[result] = '\0';
     }
     while(incomingData[0]!='D');

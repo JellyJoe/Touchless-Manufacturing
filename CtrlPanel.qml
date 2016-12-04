@@ -154,12 +154,16 @@ CtrlPanelForm
     btnActivateArmAuto.onClicked:
     {
         _myArm.executeTime()
+        _myArm.executeAutoMovement()
         txtManualMoveRecord.append("Auto: Activated arm movement")
     }
 
     /*----- Auto stop button configuration -----*/
     btnStopArmAuto.onClicked:
     {
+        //stop arm connection
+        _myArm.stopMovement();
+
         //change the connect button to grey
         connectAutoBackground.color = "#E0E0E0"
 
@@ -195,6 +199,8 @@ CtrlPanelForm
     //onclick
     btnHeightFetch.onClicked:
     {
+        //call function to set heigh of item
+        _myArm.setHeight();
         txtManualMoveRecord.append("AUTOMATIC: Height assign")
     }
 
@@ -212,6 +218,12 @@ CtrlPanelForm
 
     /*----- Store the start position -----*/
 
+    //button onclick
+    btnPositionStart.onClicked:
+    {
+        _myArm.setPositionA();
+    }
+
     //lighter colour onclick
     btnPositionStart.onPressed:
     {
@@ -225,6 +237,12 @@ CtrlPanelForm
 
     /*----- Store the stamper position -----*/
 
+    //button onclick
+    btnStamperPosition.onClicked:
+    {
+        _myArm.setPositionB();
+    }
+
     //lighter colour onclick
     btnStamperPosition.onPressed:
     {
@@ -237,6 +255,12 @@ CtrlPanelForm
     }
 
     /*----- Store the end position -----*/
+
+    //button onclick
+    btnPositionEnd.onClicked:
+    {
+        _myArm.setPositionC();
+    }
 
     //lighter colour onclick
     btnPositionEnd.onPressed:
