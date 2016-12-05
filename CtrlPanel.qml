@@ -13,6 +13,9 @@ CtrlPanelForm
     txtManualMoveRecord.textFormat: TextEdit.RichText // for color
 
 
+    property int signaturePresent
+
+
 
     //========================================================================================
     //                                      MANUAL
@@ -153,9 +156,31 @@ CtrlPanelForm
     /*----- Auto activate button configuration  -----*/
     btnActivateArmAuto.onClicked:
     {
+        //start the time
         _myArm.executeTime()
-        _myArm.executeAutoMovement()
         txtManualMoveRecord.append("Auto: Activated arm movement")
+
+        //start connection to pixy
+        _myPixy.getBlocks()
+
+        //execute loop while there is no signature detected
+        while(!_myPixy.checkBlocks())
+        {
+            if(!_myPixy.checkBlocks())
+            {
+                _myArm.executeAutoMovement()
+            }
+
+            else
+            {
+                //break loop the moment signature is detected
+                break
+            }
+        }
+
+        //reset pixy connection to flush out buffer
+        _myPixy.stopPixy()
+
     }
 
     /*----- Auto stop button configuration -----*/
@@ -163,6 +188,9 @@ CtrlPanelForm
     {
         //stop arm connection
         _myArm.stopMovement();
+
+        //stop pixy connection
+        _myPixy.stopPixy()
 
         //change the connect button to grey
         connectAutoBackground.color = "#E0E0E0"
@@ -179,7 +207,7 @@ CtrlPanelForm
     btnSignatureFetch.onClicked:
     {
         txtManualMoveRecord.append("AUTOMATIC: Signature assign")
-        _myClass.pixyRun()
+        _myPixy.executePixymon()
     }
 
     //lighter colour onclick
