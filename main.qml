@@ -13,8 +13,8 @@ ApplicationWindow
     height: 480
     title: qsTr("Touchless Manufacturing")
 
-    property string xml_data_storage_filename: "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Arm_Data_Storage.xml"
-    //property string xml_data_storage_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml"
+    //property string xml_data_storage_filename: "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Arm_Data_Storage.xml"
+    property string xml_data_storage_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml"
 
     property int cycleCount
     property int elapsedTime
@@ -81,17 +81,21 @@ ApplicationWindow
                     date = Qt.formatDateTime(new Date(), "dd-MM-yyyy")
 
                     //call report function to update process details
-                    _report.updateTimestamp(date, elapsedTime, cycleCount)
+                    _myReport.updateTimestamp(date, elapsedTime, cycleCount)
 
                     //debug value
                     console.debug(" ", cycleCount, " ", elapsedTime, " ", date)
 
                     // saves the loaded xml file
-                    _report.saveXMLFile(xml_data_storage_filename)
+                    if(_myReport.saveXMLFile(xml_data_storage_filename) === true)
+                        console.debug("Saved")
+                    else
+                        console.debug("Not saved")
 
 
                     //delete the arm instance to disconnect and stop arm
                     delete _myArm
+                    delete _myPixy
 
                     Qt.quit()
                 }

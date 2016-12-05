@@ -19,7 +19,7 @@ ReportForm
     //Master report button onclick
     btnMasterReport.onClicked:
     {
-        _report.generateMasterReport(excel_template_filename)
+        _myReport.generateMasterReport(excel_template_filename)
         msgMasterReport.visible = true
     }
 
@@ -57,7 +57,7 @@ ReportForm
     //establish connection for the data retrieval from the xml
     Connections
     {
-        target: _report
+        target: _myReport
         onSendTimestampData:
         {
             if(processed === "nil")
@@ -73,7 +73,7 @@ ReportForm
     }
 
     //Date Report Button onclick
-    btnDateReport.onClicked: _report.displaySpecificTimestamp(date)
+    btnDateReport.onClicked: _myReport.displaySpecificTimestamp(date)
 
     //lighter colour onclick
     btnDateReport.onPressed:

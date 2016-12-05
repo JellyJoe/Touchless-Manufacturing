@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     Serial.cpp \
     Report.cpp \
     tinyxml2.cpp \
-    Arm.cpp
+    Arm.cpp \
+    Pixy.cpp
 
 RESOURCES += qml.qrc
 
@@ -22,7 +23,8 @@ HEADERS += \
     Serial.h \
     Report.h \
     tinyxml2.h \
-    Arm.h
+    Arm.h \
+    Pixy.h
 
 unix:!macx: LIBS += -L$$PWD/./ -ltinyxml2
 

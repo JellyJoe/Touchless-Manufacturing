@@ -4,7 +4,7 @@
 #include "Report.h"
 
 //char MASTER_REPORT_FILENAME[] = "C:\\Users\\Joe\\Desktop\\MasterReport.xml";
-char MASTER_REPORT_FILENAME[] = "C:\\Users\\Sukhdip\\Desktop\\MasterReport.xml"
+char MASTER_REPORT_FILENAME[] = "C:\\Users\\Sukhdip\\Desktop\\MasterReport.xml";
 
 bool Report::isDigitString(const string& number)
 {
@@ -500,7 +500,15 @@ bool Report::saveXMLFile(QString fileName)
 bool Report::loadXMLFile(const char* XML_STORAGE_FILENAME)
 {
     if(doc.LoadFile(XML_STORAGE_FILENAME) != 0)
-        return false;
+    {
+        ofstream outfile;
+        outfile.open(XML_STORAGE_FILENAME);
+        outfile << "<arm id=\"4321\"/>" << endl;
+        outfile.close();
+
+        if(doc.LoadFile(XML_STORAGE_FILENAME) != 0)
+         return false;
+    }
 
     if(validateXMLContent() == false)
         return false;

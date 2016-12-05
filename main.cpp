@@ -12,6 +12,7 @@
 
 #include "MyClass.h"
 #include "Serial.h"
+#include "Pixy.h"
 #include "Report.h"
 #include "Arm.h"
 
@@ -34,8 +35,11 @@ int main(int argc, char *argv[])
     MyClass myClass;
     engine.rootContext()->setContextProperty("_myClass", &myClass);
 
+    Pixy pixy;
+    engine.rootContext()->setContextProperty("_myPixy", &pixy);
+
     Report report;
-    engine.rootContext()->setContextProperty("_report", &report);
+    engine.rootContext()->setContextProperty("_myReport", &report);
 
     if(report.loadXMLFile(XML_DATA_STORAGE) == true)
         qDebug() << "Successfully loaded XML file.";
