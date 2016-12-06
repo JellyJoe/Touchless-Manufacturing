@@ -24,8 +24,8 @@ public:
 public slots:
     void getBlocks();//Execute pixy
     bool checkBlocks();//To check for receive blocks is true
-    void executePixymon();
-    void stopPixy();
+    void executePixymon();//Execute PixyMon
+    void stopPixy();//Stop Pixy
 
 };
 

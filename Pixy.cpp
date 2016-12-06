@@ -13,6 +13,7 @@ using namespace std;
 Pixy::Pixy(QObject * parent) :
     QObject(parent)
 {
+    //Pixy Serial Port Number
     pixySP = new Serial ((char*)"COM5");
     if(pixySP->IsConnected())
     {
@@ -24,11 +25,12 @@ Pixy::Pixy(QObject * parent) :
     }
     incomingData[MAX_DATA_LENGTH] = {'\0'};
     outgoingData[MAX_DATA_LENGTH] = {'\0'};
+    //PixyMon path
     path = "C:\\PixyMon\\bin\\PixyMon.exe";
     check = 0;
 }
 
-//Execute pixy by entering y
+//Execute pixy
 void Pixy::getBlocks()
 {
     strcpy(outgoingData, "y");

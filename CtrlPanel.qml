@@ -168,6 +168,7 @@ CtrlPanelForm
         {
             if(!_myPixy.checkBlocks())
             {
+                //execute the arm
                 _myArm.executeAutoMovement()
             }
 
