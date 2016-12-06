@@ -1,4 +1,3 @@
-/*PrimeDev - 2016*/
 #include "header.h"
 //Function to connect the serial port
 Serial::Serial(char *portName)

@@ -1,4 +1,3 @@
-/*PrimeDev - 2016*/
 #ifndef SERIALCLASS_H_INCLUDED
 #define SERIALCLASS_H_INCLUDED
 

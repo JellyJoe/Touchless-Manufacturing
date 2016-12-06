@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1479369450 source:c:\mingw\bin\pixy\implement.cpp
+	"header.h"
+
+1479369433 c:\mingw\bin\pixy\header.h
+	<windows.h>
+	<stdio.h>
+
+1480929681 source:c:\mingw\bin\pixy\main.cpp
+	<stdio.h>
+	<tchar.h>
+	"header.h"
+	<string>
+	<cstdlib>
+	<iostream>
+
