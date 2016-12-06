@@ -1,6 +1,7 @@
+//Header Files
 #include "uarm_library.h"
 
-
+//auto movement struct
 struct a_movement
 {
   float position_a[2][3];
@@ -8,20 +9,25 @@ struct a_movement
   float position_c[3][3];
 };
 
+//variable declaration
 a_movement autoMove;
 float armDifference = 0;
+
+//setup function
 void setup() {
 
   Wire.begin();      // join i2c bus (address optional for master)
   Serial.begin(9600); // start serial port at 9600 bps
 }
 
-
+//Main function for arduino
 void loop() {
 
+  //If there are any inputs in the serial port it will then execute this condition
   if (Serial.available() > 0)
   {
 
+    //reading serial port
     char readSerial = Serial.read();
     Serial.println(readSerial);
 
@@ -29,7 +35,7 @@ void loop() {
     // function below is for move uArm from current position to absolute coordinate
     // x = 13, y = -13, z = 3
 
-
+    //if serial port sends 1 which means demo mode
     if (readSerial == '1') {
 
       uarm.move_to(40, -15, 15);
@@ -66,6 +72,7 @@ void loop() {
 
     }
 
+    //if serial port sends A it will then proceed to save position A
     if (readSerial == 'A')
     {
       int count = 0;
@@ -83,6 +90,8 @@ void loop() {
       count++;
     }
 
+    
+    //if serial port sends b it will then proceed to save position b
     if (readSerial == 'b')
     {
 
@@ -126,6 +135,8 @@ void loop() {
 
     }
 
+    
+    //if serial port sends c it will then proceed to save position c
     if (readSerial == 'c')
     {
       double temp;
@@ -149,6 +160,8 @@ void loop() {
       autoMove.position_c[count][2] = 18;
     }
 
+    
+    //if serial port sends e it will then proceed to execute the movement of the arm
     if (readSerial == 'e')
     {
       uarm.set_servo_status(true, SERVO_ROT_NUM);
@@ -209,12 +222,24 @@ void loop() {
 
     }
 
+    
+    //if serial port sends h it will then proceed to save the height of the object
     if (readSerial == 'h')
     {
       float temp;
       uarm.get_current_xyz();
       temp = uarm.get_current_z();
       armDifference = temp - 8.25;
+    }
+
+    
+    //attach Servo function
+    if (readSerial == 'a')
+    {
+      uarm.set_servo_status(true, SERVO_ROT_NUM);
+      uarm.set_servo_status(true, SERVO_LEFT_NUM);
+      uarm.set_servo_status(true, SERVO_RIGHT_NUM);
+
     }
   }
 }
