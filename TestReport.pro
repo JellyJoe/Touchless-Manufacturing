@@ -1,9 +1,3 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2016-12-08T19:23:13
-#
-#-------------------------------------------------
-
 QT       += testlib
 
 QT       -= gui
@@ -20,12 +14,12 @@ SOURCES += tst_testreport.cpp \
     tinyxml2.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
-unix:!macx: LIBS += -L$$PWD/../Touchless-Manufacturing/ -ltinyxml2
+unix:!macx: LIBS += -L$$PWD/./ -ltinyxml2
 
-INCLUDEPATH += $$PWD/../Touchless-Manufacturing
-DEPENDPATH += $$PWD/../Touchless-Manufacturing
+INCLUDEPATH += $$PWD/.
+DEPENDPATH += $$PWD/.
 
-unix:!macx: PRE_TARGETDEPS += $$PWD/../Touchless-Manufacturing/libtinyxml2.a
+unix:!macx: PRE_TARGETDEPS += $$PWD/./libtinyxml2.a
 
 HEADERS += \
     Report.h \
