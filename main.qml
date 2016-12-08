@@ -16,41 +16,47 @@ ApplicationWindow
     //property string xml_data_storage_filename: "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Arm_Data_Storage.xml"
     property string xml_data_storage_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml"
 
+    //property declaration for report variables
     property int cycleCount
     property int elapsedTime
     property string date
 
+    //swipe view to allow swipe navigation
     SwipeView
     {
         id: swipeView
         anchors.fill: parent
-        currentIndex: tabBar.currentIndex
+        currentIndex: tabBar.currentIndex //work with tab bar to get index of page navigated to
 
-
+        //report view
         Report
         {
 
         }
 
+        //control panel view
         CtrlPanel
         {
 
         }
     }
 
+    //tab header for menu selection
     header: TabBar
     {
         id: tabBar
+        //work with swipe view to get index of page
         currentIndex: swipeView.currentIndex
 
 
-
+        //report tab button
         TabButton
         {
             id:btnReportView
             text: qsTr("Report View")
         }
 
+        //control panel tab button
         TabButton
         {
             id:btnControlPanel
@@ -58,11 +64,13 @@ ApplicationWindow
 
         }
 
+        //exit button containing confirmation dialog for exit and variable saving into xml
         TabButton
         {
             id: btnExit
             text: qsTr("Exit")
 
+            //confirmation dialog for exit
             MessageDialog
             {
                 id: dialogExit
@@ -71,6 +79,8 @@ ApplicationWindow
 
                 standardButtons: StandardButton.Ok | StandardButton.Cancel
                 text: "Exit Touchless Manufacturing Application?"
+
+                //on exit confirmation
                 onAccepted:
                 {
                     //get the cycle count from Arm class
@@ -100,6 +110,7 @@ ApplicationWindow
                     Qt.quit()
                 }
 
+                //if exit cancelled navigate back to index 0
                 onRejected:
                 {
 
@@ -107,6 +118,8 @@ ApplicationWindow
 
                 }
             }
+
+            //on clicking the tab exit button, the confirmation dialog for exit will be visible
             onClicked: dialogExit.visible = true
         }
     }

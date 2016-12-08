@@ -1,6 +1,5 @@
 //Header file
 #include "Arm.h"
-#include "MyClass.h"
 #include "Pixy.h"
 #include "Serial.h"
 #include <iostream>
@@ -66,7 +65,7 @@ bool Pixy::checkBlocks()
 void Pixy::executePixymon()
 {
     qDebug() << "PixyMon run";
-    QProcess::execute(path);
+    pixyProcess.start(path);
 
 }
 

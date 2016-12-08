@@ -4,12 +4,12 @@ import QtQuick.Layouts 1.2
 
 Item {
 
-    id: item3
+    id: controlPanelItem
     width: 1280
     height: 720
     property alias btnHeightFetch: btnHeightFetch
     property alias btnPositionStart: btnPositionStart
-    property alias txtManualMoveRecord: txtManualMoveRecord
+    property alias txtExecutionDisplay: txtExecutionDisplay
 
     //=======================================================================================================
     //                          Property declarations for button and background
@@ -45,7 +45,8 @@ Item {
 
 
     //Demo process configuration (button)
-    property alias btnDemo: btnDemo
+    property alias btnDemo: btnDemo //execute demo function
+    property alias demoBackground: demoBackground //btnDemo background
 
     //=======================================================================================================
 
@@ -55,7 +56,7 @@ Item {
 
 
     Rectangle {
-        id: rectangle1
+        id: encapsulationRectangle
         color: "#232323"
         anchors.rightMargin: 0
         anchors.bottomMargin: 0
@@ -170,19 +171,20 @@ Item {
                         id: flickableManualMoveRecord
                         width: 465
                         height: 236
+                        anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
                         anchors.rightMargin: 20
-                        contentWidth: txtManualMoveRecord.width
-                        contentHeight: txtManualMoveRecord.height
+                        contentWidth: txtExecutionDisplay.width
+                        contentHeight: txtExecutionDisplay.height
 
                         TextArea.flickable: TextArea {
-                            id: txtManualMoveRecord
-                            anchors.centerIn: flickableManualMoveRecord
+                            id: txtExecutionDisplay
                             width: 465
                             height: 236
 
                             background: Rectangle{
-                                color:"white"
+                                color:"black"
+                                radius: 10
                             }
 
                         }
@@ -284,7 +286,7 @@ Item {
                             y: 190
                             width: 100
                             height: 47
-                            text: qsTr("Stop Arm")
+                            text: qsTr("Disconnect Arm")
                             anchors.horizontalCenterOffset: 141
                             anchors.horizontalCenter: parent.horizontalCenter
                             enabled: false
@@ -445,6 +447,10 @@ Item {
                             text: qsTr("Arm Demo")
                             anchors.horizontalCenterOffset: 1
                             anchors.horizontalCenter: parent.horizontalCenter
+                            background: Rectangle {
+                                id: demoBackground
+                                color: "#E0E0E0"
+                            }
 
                         },
                         Text {
@@ -455,10 +461,11 @@ Item {
                             height: 161
                             color: "#ffffff"
                             text: "In order to check for any movement fault, we recommend that you execute the demo. This will test the movement based on preset coordinates and vacuum function."
+                            style: Text.Raised
                             anchors.horizontalCenter: parent.horizontalCenter
                             horizontalAlignment: Text.AlignHCenter
                             verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: 25
+                            font.pixelSize: 20
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             styleColor: "#00000000"
                         }]

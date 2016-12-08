@@ -33,7 +33,7 @@ class Report : public QObject
         bool saveXMLFile(QString);
 
     signals:
-        void sendTimestampData(QString processed, QString uptime, QString errorCount);
+        void sendTimestampData(const QString &processed, const QString &uptime, const QString &errorCount);
 };
 
 #endif // __REPORT_H__

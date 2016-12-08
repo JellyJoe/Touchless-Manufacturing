@@ -16,6 +16,7 @@ private:
     char outgoingData[MAX_DATA_LENGTH];
     int check;
     QString path;
+    QProcess pixyProcess;
 
 public:
     Serial * pixySP;

@@ -9,8 +9,8 @@ CtrlPanelForm
 
     // REFERENCE
     // http://doc.qt.io/qt-5/qml-qtquick-controls2-textarea-members.html
-    txtManualMoveRecord.readOnly: true
-    txtManualMoveRecord.textFormat: TextEdit.RichText // for color
+    txtExecutionDisplay.readOnly: true
+    txtExecutionDisplay.textFormat: TextEdit.RichText // for color
 
 
     property int signaturePresent
@@ -26,7 +26,7 @@ CtrlPanelForm
     //establish connection with arm for manual process
     btnConnectManual.onClicked:
     {
-        txtManualMoveRecord.append("MANUAL: Connected arm movement")
+        txtExecutionDisplay.append("<font color=\"white\">MANUAL: Connected arm movement")
          _myArm.manualLaunched()
 
         //change button color to green
@@ -56,7 +56,7 @@ CtrlPanelForm
     /*----- Manual activate button configuration  -----*/
     btnActivateArmManual.onClicked:
     {
-        txtManualMoveRecord.append("MANUAL: Activated arm movement")
+        txtExecutionDisplay.append("<font color=\"green\">MANUAL: Activated arm movement")
         _myArm.executeManualMovement()
     }
 
@@ -64,7 +64,7 @@ CtrlPanelForm
     /*----- Manual Stop button configuration  -----*/
     btnStopArmManual.onClicked:
     {
-        txtManualMoveRecord.append("<font color=\"red\">MANUAL: Stopped arm movement</font>")
+        txtExecutionDisplay.append("<font color=\"red\">MANUAL: Stopped arm movement</font>")
         _myArm.stopMovement()
 
         //change the color of  start to grey
@@ -80,7 +80,7 @@ CtrlPanelForm
     //store coordinate with suction active
     btnMoveWithPump.onClicked:
     {
-        txtManualMoveRecord.append("MANUAL: Stored coordinates with suction activation")
+        txtExecutionDisplay.append("<font color=\"white\">MANUAL: Stored coordinates with suction activation")
         _myArm.saveWithPump()
     }
 
@@ -101,7 +101,7 @@ CtrlPanelForm
     //store coordinate without suction
     btnMoveWithoutPump.onClicked:
     {
-        txtManualMoveRecord.append("MANUAL: Stored coordinates only")
+        txtExecutionDisplay.append("<font color=\"white\">MANUAL: Stored coordinates only")
         _myArm.saveWithoutPump()
     }
 
@@ -125,8 +125,7 @@ CtrlPanelForm
     btnConnectAuto.onClicked:
     {
 
-        txtManualMoveRecord.append("MANUAL: Connected arm movement")
-        // _myArm.autoLaunched()
+        txtExecutionDisplay.append("<font color=\"white\">AUTOMATIC: Connected arm movement")
 
 
         //change button color to green
@@ -158,7 +157,7 @@ CtrlPanelForm
     {
         //start the time
         _myArm.executeTime()
-        txtManualMoveRecord.append("Auto: Activated arm movement")
+        txtExecutionDisplay.append("<font color=\"green\">AUTOMATIC: Activated arm movement")
 
         //start connection to pixy
         _myPixy.getBlocks()
@@ -179,14 +178,17 @@ CtrlPanelForm
             }
         }
 
-        //reset pixy connection to flush out buffer
+        //stop pixy connection
         _myPixy.stopPixy()
+
 
     }
 
     /*----- Auto stop button configuration -----*/
     btnStopArmAuto.onClicked:
     {
+        txtExecutionDisplay.append("<font color=\"red\">AUTOMATIC: Deactivated arm movement")
+
         //stop arm connection
         _myArm.stopMovement();
 
@@ -207,7 +209,7 @@ CtrlPanelForm
     //run pixymon to fetch signature of item
     btnSignatureFetch.onClicked:
     {
-        txtManualMoveRecord.append("AUTOMATIC: Signature assign")
+        txtExecutionDisplay.append("<font color=\"white\">AUTOMATIC: Signature assign")
         _myPixy.executePixymon()
     }
 
@@ -228,9 +230,11 @@ CtrlPanelForm
     //onclick
     btnHeightFetch.onClicked:
     {
+        txtExecutionDisplay.append("<font color=\"white\">AUTOMATIC: Item height set")
+
         //call function to set heigh of item
         _myArm.setHeight();
-        txtManualMoveRecord.append("AUTOMATIC: Height assign")
+        txtExecutionDisplay.append("AUTOMATIC: Height assign")
     }
 
     //lighter colour onclick
@@ -247,9 +251,13 @@ CtrlPanelForm
 
     /*----- Store the start position -----*/
 
+
     //button onclick
     btnPositionStart.onClicked:
     {
+        txtExecutionDisplay.append("<font color=\"white\">AUTOMATIC: Start Point set")
+
+        //set coordinate for point A
         _myArm.setPositionA();
     }
 
@@ -269,6 +277,9 @@ CtrlPanelForm
     //button onclick
     btnStamperPosition.onClicked:
     {
+        txtExecutionDisplay.append("<font color=\"white\">AUTOMATIC: Stamper Point set")
+
+        //Set stamper point coordinate
         _myArm.setPositionB();
     }
 
@@ -288,6 +299,9 @@ CtrlPanelForm
     //button onclick
     btnPositionEnd.onClicked:
     {
+        txtExecutionDisplay.append("<font color=\"white\">AUTOMATIC: End Point set")
+
+        //Set end point coordinate
         _myArm.setPositionC();
     }
 
@@ -309,7 +323,40 @@ CtrlPanelForm
     //execute demo movemement for arm
     btnDemo.onClicked:
     {
-        txtManualMoveRecord.append("DEMO: Running...")
+
+        //change button color to green
+        demoBackground.color = "#67f90c"
+
+        //disable auto buttons
+        btnActivateArmAuto.enabled = false
+        btnSignatureFetch.enabled = false
+        btnStamperPosition.enabled = false
+        btnPositionEnd.enabled = false
+        btnStopArmAuto.enabled = false
+        btnPositionStart.enabled = false
+        btnHeightFetch.enabled = false
+
+        //disable manual buttons
+        btnActivateArmManual.enabled = false
+        btnStopArmManual.enabled = false
+        btnMoveWithPump.enabled =  false
+        btnMoveWithoutPump.enabled = false
+
+        //disable the auto and manual connect button
+        btnConnectAuto.enabled = false
+        btnConnectManual.enabled = false
+
+        txtExecutionDisplay.append("<font color=\"green\">DEMO: Troubleshoot demo activated")
         _myArm.demoClicked()
+
+
+        //change the demo button to grey
+        demoBackground.color = "#E0E0E0"
+
+
+        //enable the auto and manual button
+        btnConnectManual.enabled = true
+        btnConnectAuto.enabled = true
+
     }
 }

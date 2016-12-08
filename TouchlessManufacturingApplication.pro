@@ -3,7 +3,6 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    MyClass.cpp \
     Serial.cpp \
     Report.cpp \
     tinyxml2.cpp \
@@ -19,7 +18,6 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    MyClass.h \
     Serial.h \
     Report.h \
     tinyxml2.h \

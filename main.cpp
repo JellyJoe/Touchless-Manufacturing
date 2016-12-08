@@ -10,7 +10,6 @@
 #include <QtWidgets/QMessageBox>
 #include <QDebug>
 
-#include "MyClass.h"
 #include "Serial.h"
 #include "Pixy.h"
 #include "Report.h"
@@ -31,9 +30,6 @@ int main(int argc, char *argv[])
 
     Arm arm;
     engine.rootContext()->setContextProperty("_myArm", &arm);
-
-    MyClass myClass;
-    engine.rootContext()->setContextProperty("_myClass", &myClass);
 
     Pixy pixy;
     engine.rootContext()->setContextProperty("_myPixy", &pixy);

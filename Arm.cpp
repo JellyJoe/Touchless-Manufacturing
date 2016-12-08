@@ -1,6 +1,5 @@
 //Header file
 #include "Arm.h"
-#include "MyClass.h"
 #include "Serial.h"
 #include <iostream>
 #include <QProcess>

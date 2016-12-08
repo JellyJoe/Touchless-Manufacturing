@@ -13,7 +13,6 @@ ReportForm
     //===================================================================================
     //                              MASTER REPORT
 
-    //property string excel_template_filename: "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Excel_Template.xml"
     property string excel_template_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Excel_Template.xml"
 
     //Master report button onclick
@@ -54,6 +53,7 @@ ReportForm
     //date selection based on calendar click
     property string date: Qt.formatDateTime(calendar.selectedDate, "dd-MM-yyyy")
 
+
     //establish connection for the data retrieval from the xml
     Connections
     {
@@ -90,9 +90,13 @@ ReportForm
     //Chosen Date Report Dialog
     MessageDialog
     {
+
         id: msgReport
         title: "Selected Date Report"
         icon: StandardIcon.Information
         onAccepted: visible = false
+        standardButtons: StandardButton.Ok
+
+
     }
 }
