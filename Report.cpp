@@ -24,7 +24,7 @@ bool Report::validateDate(const char* date)
     int dayInt, monthInt, yearInt, remainder;
     size_t firstDashPosition, secondDashPosition, thirdDashCheck;
     string dayString, monthString, yearString;
-    bool isLeapYear;
+    bool isLeapYear = false;
 
     // looks for the first "-" in the date string, then checks to see if it is found or not
     firstDashPosition = dateString.find("-");

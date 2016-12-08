@@ -1,9 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>main.qml</file>
-        <file>Report.qml</file>
-        <file>ReportForm.ui.qml</file>
-        <file>CtrlPanel.qml</file>
-        <file>CtrlPanelForm.ui.qml</file>
-    </qresource>
-</RCC>

@@ -16,17 +16,17 @@ class Report : public QObject
 
     private:
         tinyxml2::XMLDocument doc;
-        bool isDigitString(const string&);
-        bool isTimestampExist(const string&);
-        bool validateUptime(const char*);
         bool validateXMLContent();
-        bool validateDate(const char*);
 
     public:
         Report() {}
         bool loadXMLFile(const char*);
 
     public slots:
+        bool isDigitString(const string&);
+        bool isTimestampExist(const string&);
+        bool validateUptime(const char*);
+        bool validateDate(const char*);
         bool displaySpecificTimestamp(QString);
         bool generateMasterReport(QString);
         bool updateTimestamp(QString, int, int);
