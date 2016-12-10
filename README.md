@@ -3,8 +3,8 @@ This branch contains the code sketches and a driver program to test out the func
 Pixy codes are NOT included in the Arduino IDE itself, have to install it manually into the Arduino IDE.
 After completing the installation of the Pixy's library into Arduino IDE, then hook up the Pixy Camera to the Arduino.
 BE CAREFULL WHEN HOOKING UP PIXY CAMERA WITH ARDUINO! Please read the details given below first, then ONLY do the hooking up.
-Signature has to be set using PixyMon.
 After hooking up, you can now test this branch codes. 
+Signature has to be set using PixyMon. This branch code has set for allowing 1 block to be detected for Signature number 1 only. Adjustment needed to be made for multiple blocks.
 
 #Hooking up Pixy to Microcontroller
 Go to this link: http://cmucam.org/projects/cmucam5/wiki/Hooking_up_Pixy_to_a_Microcontroller_(like_an_Arduino)
