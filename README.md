@@ -1,6 +1,6 @@
 #Pixy
 This branch contains the code sketches and a driver program to test out the functionality of it.
-Pixy codes are NOT included in the Arduino IDE itself, have to install it manually into the Arduino IDE.
+Pixy library file is NOT included in the Arduino IDE itself, have to install it manually into the Arduino IDE.
 After completing the installation of the Pixy's library into Arduino IDE, then hook up the Pixy Camera to the Arduino.
 BE CAREFULL WHEN HOOKING UP PIXY CAMERA WITH ARDUINO! Please read the details given below first, then ONLY do the hooking up.
 After hooking up, you can now test this branch codes. 
