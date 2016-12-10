@@ -15,4 +15,4 @@ Alternatively, visit this link to learn about the installation process of the ID
 Link: https://www.arduino.cc/en/Main/Howto
 
 ##Download Arm branch
-Link: https://github.com/PrimeDevSolutions/Touchless-Manufacturing/archive/Arm.zip
+Link: https://github.com/PrimeDevSolutions/Touchless-Manufacturing/archive/arm.zip
