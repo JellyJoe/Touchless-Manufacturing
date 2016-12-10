@@ -2,6 +2,8 @@
 ##User Interface
 This branch contains the codes for the final version of the application.
 
+This branch is also considred to be the 'master' branch of this repository.
+
 It contains the user interface elements as well as the functionalities of it.
 
 ###Requirements
