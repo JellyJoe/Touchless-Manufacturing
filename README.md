@@ -6,13 +6,14 @@ BE CAREFULL WHEN HOOKING UP PIXY CAMERA WITH ARDUINO! Please read the details gi
 After hooking up, you can now test this branch codes. 
 Signature has to be set using PixyMon. This branch code has set for allowing 1 block to be detected for Signature number 1 only. Adjustment needed to be made for multiple blocks.
 
-#Hooking up Pixy to Microcontroller
+##Hooking up Pixy to Microcontroller
 Go to this link: http://cmucam.org/projects/cmucam5/wiki/Hooking_up_Pixy_to_a_Microcontroller_(like_an_Arduino)
 
-#Installation of Arduino IDE
+##Installation
+###Installation of Arduino IDE
 Download from this link: https://www.arduino.cc/en/Main/Software
 
-#Installation of PixyMon and Pixy Library
+###Installation of PixyMon and Pixy Library
 Download from this link: http://cmucam.org/projects/cmucam5/wiki/Latest_release
 PixyMon is a software for user to view what is Pixy sees. It provide configuration and teaches how Pixy sees.
 
@@ -20,17 +21,17 @@ PixyMon is a software for user to view what is Pixy sees. It provide configurati
 Here is the guide link: https://www.arduino.cc/en/Guide/Libraries
 Here is an alternative guide link: http://cmucam.org/projects/cmucam5/wiki/Arduino_API
 
-#How to install PixyMon
+##How to install PixyMon
 Here is the guide link: http://www.cmucam.org/projects/cmucam5/wiki/Install_PixyMon_on_Windows_Vista_7_8
 
-#For further understanding how to use PixyMon
+##For further understanding how to use PixyMon
 Go to this link: http://www.cmucam.org/projects/cmucam5/wiki/Teach_Pixy_an_object
 
-#For further understanding of PixyMon Configuration Parameters
+##For further understanding of PixyMon Configuration Parameters
 Go to this link: http://cmucam.org/projects/cmucam5/wiki/Pixymon_Configuration_Parameters
 
-#For further understanding of Pixy's behaviour
+##For further understanding of Pixy's behaviour
 Go to this link: http://cmucam.org/projects/cmucam5/boards
 
 ##Download
-Link: https://github.com/PrimeDevSolutions/Touchless-Manufacturing/archive/pixyCAM.zip
+Link: https://github.com/PrimeDevSolutions/Touchless-Manufacturing/archive/pixy.zip
