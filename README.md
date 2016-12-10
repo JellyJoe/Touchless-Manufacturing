@@ -1,6 +1,3 @@
-# Touchless-Manufacturing
-PrimeDev Final Year Project
-
 #User Interface
 This branch contains the codes for the final version of the application.
 
