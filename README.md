@@ -19,6 +19,7 @@ PixyMon is a software for user to view what is Pixy sees. It provide configurati
 
 ##Include the Pixy Library .zip file into Arduino IDE
 Here is the guide link: https://www.arduino.cc/en/Guide/Libraries
+
 Here is an alternative guide link: http://cmucam.org/projects/cmucam5/wiki/Arduino_API
 
 ##How to install PixyMon
