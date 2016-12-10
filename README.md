@@ -7,6 +7,7 @@ Change the terminal directory to this, type 'make' in the terminal and followed 
 
 ##External Libraries
 The functions would not be possible without the use of TinyXML2.
+
 TinyXML2 GitHub: https://github.com/leethomason/tinyxml2
 
 ##Download
