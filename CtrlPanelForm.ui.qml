@@ -55,7 +55,9 @@ Item {
     transformOrigin: Item.Center
 
 
+    //outer encapsulation
     Rectangle {
+        //rectangle formatting
         id: encapsulationRectangle
         color: "#232323"
         anchors.rightMargin: 0
@@ -66,20 +68,23 @@ Item {
         clip: false
         border.color: "#232323"
 
+        //alignment of panels using columns
         ColumnLayout {
             x: 24
             width: 1079
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 8
-            anchors.top: txtReportTitle.bottom
+            anchors.top: txtControlTitle.bottom
             anchors.bottom: parent.bottom
             anchors.topMargin: 12
             spacing: 0
 
+            //groupboxes for different functionalities
+            //manual configuration and textarea for status update
             GroupBox {
+                //stlying and formatting
                 id: boxManualConfig
                 width: 933
-
                 spacing: 20
                 title: qsTr("Manual Configuration")
                 label: Text {
@@ -94,8 +99,10 @@ Item {
                 Layout.preferredWidth: 929
                 topPadding: 20
 
+                //groupbox content and formating
                 contentData: [
 
+                //manual connect button
                 Button {
                     id: btnConnectManual
                     x: 66
@@ -111,6 +118,7 @@ Item {
                     }
                 },
 
+                //manual activate button
                 Button {
                     id: btnActivateArmManual
                     x: 207
@@ -121,6 +129,7 @@ Item {
                     enabled: false
                     },
 
+                //manual stop button
                 Button {
                     id: btnStopArmManual
                     x: 350
@@ -132,6 +141,7 @@ Item {
                     checkable: false
                     },
 
+                //manual arm move with pump button
                 Button {
                     id: btnMoveWithPump
                     x: 66
@@ -142,6 +152,8 @@ Item {
                     enabled: false
                     autoRepeat: false
                     autoExclusive: false
+
+                    //blue rounded button format
                     background: Rectangle {
                         id: withPumpBackground
                         color: "#2bb9ef"
@@ -150,6 +162,7 @@ Item {
                     }
                 },
 
+                //manual arm without pump button
                 Button {
                     id: btnMoveWithoutPump
                     x: 66
@@ -158,6 +171,8 @@ Item {
                     height: 46
                     text: "Set move without pump"
                     enabled: false
+
+                    //blue rounded button format
                     background: Rectangle {
                         id:withoutPumpBackground
                         color: "#2bb9ef"
@@ -167,6 +182,7 @@ Item {
                     }
                 },
 
+                    //flickable text area for status display
                     Flickable {
                         id: flickableManualMoveRecord
                         width: 465
@@ -191,8 +207,8 @@ Item {
 
                     },
 
-                    
-                Text {
+                    //save with without pump text description
+                    Text {
                         id: text10
                         x: 246
                         y: 45
@@ -207,6 +223,7 @@ Item {
                         wrapMode: Text.WordWrap
                     },
 
+                    //save with with pump text description
                     Text {
                         id: text11
                         x: 246
@@ -228,12 +245,14 @@ Item {
 
             }
 
+            //row layout to place auto and demo beneath manual
             RowLayout {
                 Layout.fillHeight: false
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 spacing: 10
 
+                //auto configuration groupbox
                 GroupBox {
                     id: boxAutoConfig
                     width: 650
@@ -249,8 +268,10 @@ Item {
                          text: boxAutoConfig.title
                          font.bold: true
                     }
+                    //auto groupbox content
                     contentData: [
 
+                        //auto connect button
                         Button {
                             id: btnConnectAuto
                             x: 111
@@ -268,6 +289,7 @@ Item {
                             }
                         },
 
+                        //auto activate button
                         Button {
                             id: btnActivateArmAuto
                             x: 111
@@ -280,6 +302,7 @@ Item {
                             enabled: false
                         },
 
+                        //auto stop button
                         Button {
                             id: btnStopArmAuto
                             x: 111
@@ -292,6 +315,7 @@ Item {
                             enabled: false
                         },
 
+                        //auto set height button
                         Button {
                             id: btnHeightFetch
                             x: 318
@@ -300,9 +324,9 @@ Item {
                             height: 38
                             text: "Set Height"
                             enabled: false
-
                             hoverEnabled: true;
 
+                            //blue rounded button format
                             background: Rectangle {
                                 id:heightBackground
                                 color: "#2bb9ef"
@@ -312,6 +336,8 @@ Item {
                             }
 
                         },
+
+                        //set height text description
                         Text {
                             id: txtHeightFetch
                             x: 304
@@ -323,6 +349,7 @@ Item {
                             styleColor: "#00000000"
                         },
 
+                        //auto set signature button
                         Button {
                             id: btnSignatureFetch
                             x: 158
@@ -331,18 +358,19 @@ Item {
                             height: 38
                             text: "Set Signature"
                             enabled: false
-
                             hoverEnabled: true;
 
+                            //blue rounded button format
                             background: Rectangle {
                                 id:signatureBackground
                                 color: "#2bb9ef"
                                 radius: 20
                                 border.width: 2
-
                             }
 
                         },
+
+                        //set signature text description
                         Text {
                             id: txtSignatureFetch
                             x: 139
@@ -354,6 +382,7 @@ Item {
                             styleColor: "#00000000"
                         },
 
+                        //set start position button
                         Button {
                             id: btnPositionStart
                             x: 94
@@ -362,19 +391,19 @@ Item {
                             height: 38
                             text: "Start Point"
                             enabled: false
-
                             hoverEnabled: true;
 
+                            //blue rounded button format
                             background: Rectangle {
                                 id:positionStartBackground
                                 color: "#2bb9ef"
                                 radius: 20
                                 border.width: 2
-
                             }
 
                         },
 
+                        //set stamper position button
                         Button {
                             id: btnStamperPosition
                             x: 232
@@ -383,6 +412,9 @@ Item {
                             height: 38
                             text: "Stamper Point"
                             enabled: false
+                            hoverEnabled: true;
+
+                            //blue rounded button format
                             background: Rectangle {
                                 id:stamperBackground
                                 color: "#2bb9ef"
@@ -391,8 +423,9 @@ Item {
                             }
 
 
-
                         },
+
+                        //set end position button
                         Button {
                             id: btnPositionEnd
                             x: 374
@@ -401,6 +434,9 @@ Item {
                             height: 38
                             text: "End Point"
                             enabled: false
+                            hoverEnabled: true;
+
+                            //blue rounded button format
                             background: Rectangle {
                                 id:positionEndBackground
                                 color: "#2bb9ef"
@@ -408,6 +444,8 @@ Item {
                                 border.width: 2
                             }
                         },
+
+                        //text description for the coordinates setting
                         Text {
                             id: txtPositions
                             x: 183
@@ -421,6 +459,7 @@ Item {
                     ]
                 }
 
+                //groubox for demo function
                 GroupBox {
                     id: boxTroubleshoot
                     width: 442
@@ -436,8 +475,11 @@ Item {
                          text: boxTroubleshoot.title
                          font.bold: true
                       }
+
+                    //demo groupbox content
                     contentData: [
 
+                        //button to execute demo function
                         Button {
                             id: btnDemo
                             x: 137
@@ -453,6 +495,8 @@ Item {
                             }
 
                         },
+
+                        //text description about demo
                         Text {
                             id: txtDemoDescription
                             x: 0
@@ -473,9 +517,9 @@ Item {
             }
         }
 
-
+        //control panel title formatting
         Text {
-            id: txtReportTitle
+            id: txtControlTitle
             x: 247
             y: 29
             width: 487

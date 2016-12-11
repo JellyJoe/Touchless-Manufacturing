@@ -14,4 +14,14 @@
         <uptime value="0:0:17"/>
         <errors count="0"/>
     </timestamp>
+    <timestamp date="09-12-2016">
+        <processed value="0"/>
+        <uptime value="0:1:30"/>
+        <errors count="0"/>
+    </timestamp>
+    <timestamp date="10-12-2016">
+        <processed value="0"/>
+        <uptime value="23:21:38"/>
+        <errors count="0"/>
+    </timestamp>
 </arm>

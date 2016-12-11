@@ -23,6 +23,7 @@ Item {
     transformOrigin: Item.Center
 
 
+    //outer encapsulation
     Rectangle {
         id: rectangle1
         color: "#232323"
@@ -31,7 +32,7 @@ Item {
         border.color: "#232323"
 
 
-
+        //calendar formatting for the date selection
         Calendar {
             id: calendar
 
@@ -44,12 +45,9 @@ Item {
             anchors.topMargin: 15
             anchors.left: parent.left
 
-
-
         }
 
-
-
+        //master report button formatting
         Button {
             id: btnMasterReport
             x: 498
@@ -60,6 +58,7 @@ Item {
             anchors.horizontalCenterOffset: 0
             anchors.horizontalCenter: parent.horizontalCenter
 
+            //blue rounded format for button
             background: Rectangle {
                 id:masterReportBackground
                 color: "#2bb9ef"
@@ -81,6 +80,7 @@ Item {
 
         }
 
+        //specific date report button formatting
         Button {
             id: btnDateReport
             x: 476
@@ -93,6 +93,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             checkable: true
 
+            //blue rounded button
             background: Rectangle {
                 id:dateReportBackground
                 color: "#2bb9ef"
@@ -114,6 +115,7 @@ Item {
 
         }
 
+        //report view title format
         Text {
             id: txtReportTitle
             x: 247

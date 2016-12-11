@@ -7,13 +7,15 @@ import QtQuick.Dialogs 1.2
 
 ApplicationWindow
 {
+
     visible: true
     visibility: Window.FullScreen
-    width: 640
-    height: 480
+    width: 640 //non-fullscreen setting
+    height: 480 //non-fullscreen setting
     title: qsTr("Touchless Manufacturing")
 
-    //property string xml_data_storage_filename: "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Arm_Data_Storage.xml"
+    //xml file path (set to operation computer's path folder as relative directory path is having issues)
+    //changes have to be made here when switching devices
     property string xml_data_storage_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml"
 
     //property declaration for report variables

@@ -234,7 +234,7 @@ CtrlPanelForm
 
         //call function to set heigh of item
         _myArm.setHeight();
-        txtExecutionDisplay.append("AUTOMATIC: Height assign")
+
     }
 
     //lighter colour onclick
@@ -324,8 +324,6 @@ CtrlPanelForm
     btnDemo.onClicked:
     {
 
-        //change button color to green
-        demoBackground.color = "#67f90c"
 
         //disable auto buttons
         btnActivateArmAuto.enabled = false
@@ -342,21 +340,17 @@ CtrlPanelForm
         btnMoveWithPump.enabled =  false
         btnMoveWithoutPump.enabled = false
 
-        //disable the auto and manual connect button
-        btnConnectAuto.enabled = false
-        btnConnectManual.enabled = false
+        //enable the auto and manual connect button
+        btnConnectAuto.enabled = true
+        btnConnectManual.enabled = true
 
         txtExecutionDisplay.append("<font color=\"green\">DEMO: Troubleshoot demo activated")
+
+        //execute demo function
         _myArm.demoClicked()
 
 
-        //change the demo button to grey
-        demoBackground.color = "#E0E0E0"
 
-
-        //enable the auto and manual button
-        btnConnectManual.enabled = true
-        btnConnectAuto.enabled = true
 
     }
 }
