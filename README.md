@@ -19,6 +19,10 @@ To download the codes for this application, kindly click on the link below.
 Download Touchless-Manufacturing: https://github.com/PrimeDevSolutions/Touchless-Manufacturing/archive/userinterface.zip
 
 ###Usage
+#####Runnning on Qt Creator
 Upon installing the IDE, simply just go to the downloaded source codes and look for 'TouchlessManufacturingApplication.pro' and execute it.
 
 After that, the IDE will open up and simply just click the play button on the bottom left of the IDE.
+
+#####Running the program directly
+In order to run the program without the IDE, simply click on the TouchlessManufacturingApplication.exe in the Release folder under the TouchlessManufacturingApplication main folder. This will immediately execute the application. (NOTE: The program has to be run on a resolution of 1366 x 768 for perfect orientation and alignment.)
