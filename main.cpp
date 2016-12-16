@@ -2,6 +2,7 @@
 #include <tchar.h>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <unistd.h>
 
 #include <QGuiApplication>
@@ -17,8 +18,7 @@
 
 using namespace std;
 
-//const char XML_DATA_STORAGE[] = "C:\\Users\\Joe\\Documents\\Touchless-Manufacturing\\Arm_Data_Storage.xml";
-const char XML_DATA_STORAGE[] = "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml";
+const char XML_DATA_STORAGE[] = "Arm_Data_Storage.xml";
 
 int main(int argc, char *argv[])
 {
@@ -37,10 +37,14 @@ int main(int argc, char *argv[])
     Report report;
     engine.rootContext()->setContextProperty("_myReport", &report);
 
-    if(report.loadXMLFile(XML_DATA_STORAGE) == true)
-        qDebug() << "Successfully loaded XML file.";
-    else
+    if(report.loadXMLFile(XML_DATA_STORAGE) == false)
+    {
         qDebug() << "Failed to load XML file.";
+    }
+    else
+    {
+        qDebug() << "Successfully loaded XML file.";
+    }
 
     return app.exec();
 }

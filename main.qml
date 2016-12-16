@@ -7,16 +7,13 @@ import QtQuick.Dialogs 1.2
 
 ApplicationWindow
 {
-
     visible: true
     visibility: Window.FullScreen
     width: 640 //non-fullscreen setting
     height: 480 //non-fullscreen setting
     title: qsTr("Touchless Manufacturing")
 
-    //xml file path (set to operation computer's path folder as relative directory path is having issues)
-    //changes have to be made here when switching devices
-    property string xml_data_storage_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Arm_Data_Storage.xml"
+    property string xml_data_storage_filename: "Arm_Data_Storage.xml"
 
     //property declaration for report variables
     property int cycleCount
@@ -31,16 +28,10 @@ ApplicationWindow
         currentIndex: tabBar.currentIndex //work with tab bar to get index of page navigated to
 
         //report view
-        Report
-        {
-
-        }
+        Report {}
 
         //control panel view
-        CtrlPanel
-        {
-
-        }
+        CtrlPanel {}
     }
 
     //tab header for menu selection
@@ -63,7 +54,6 @@ ApplicationWindow
         {
             id:btnControlPanel
             text: qsTr("Control Panel")
-
         }
 
         //exit button containing confirmation dialog for exit and variable saving into xml
@@ -115,9 +105,7 @@ ApplicationWindow
                 //if exit cancelled navigate back to index 0
                 onRejected:
                 {
-
                     tabBar.currentIndex = 0
-
                 }
             }
 
