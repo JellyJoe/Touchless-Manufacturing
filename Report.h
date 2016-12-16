@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QProcess>
+#include <cstdlib>
 #include "tinyxml2.h"
 
 using namespace std;
@@ -34,6 +35,7 @@ class Report : public QObject
 
     signals:
         void sendTimestampData(const QString &processed, const QString &uptime, const QString &errorCount);
+        void sendExcelTemplateStatusMessage(const QString &message);
 };
 
 #endif // __REPORT_H__

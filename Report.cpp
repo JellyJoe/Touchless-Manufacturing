@@ -1,10 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
 #include "Report.h"
 
-//char MASTER_REPORT_FILENAME[] = "C:\\Users\\Joe\\Desktop\\MasterReport.xml";
-char MASTER_REPORT_FILENAME[] = "C:\\Users\\Sukhdip\\Desktop\\MasterReport.xml";
+string MASTER_REPORT_FILENAME = getenv("userprofile");
 
 bool Report::isDigitString(const string& number)
 {
@@ -569,19 +569,31 @@ bool Report::generateMasterReport(QString q_EXCEL_TEMPLATE_FILENAME)
 
     XMLDocument excelDoc;
     if(excelDoc.LoadFile(EXCEL_TEMPLATE_FILENAME.c_str()) != 0) // loads the Excel Template file
+    {
+        emit sendExcelTemplateStatusMessage("FAILED_TO_LOAD");
         return false;
+    }
 
     XMLElement* workbook = excelDoc.FirstChildElement("Workbook");
     if(workbook == NULL)
+    {
+        emit sendExcelTemplateStatusMessage("ELEMENT_FAILED");
         return false;
+    }
 
     XMLElement* worksheet = workbook->FirstChildElement("Worksheet");
     if(worksheet == NULL)
+    {
+        emit sendExcelTemplateStatusMessage("ELEMENT_FAILED");
         return false;
+    }
 
     XMLElement* table = worksheet->FirstChildElement("Table");
     if(table == NULL)
+    {
+        emit sendExcelTemplateStatusMessage("ELEMENT_FAILED");
         return false;
+    }
 
     for(int i = 0; i < 2; i++) // sets the first two row of the Excel file
     {
@@ -633,7 +645,10 @@ bool Report::generateMasterReport(QString q_EXCEL_TEMPLATE_FILENAME)
     const XMLElement* error = NULL;
 
     if(timestamp ==  NULL) // no records
+    {
+        emit sendExcelTemplateStatusMessage("NO_TIMESTAMP");
         return false;
+    }
 
     while(timestamp != NULL) // iterates through every record
     {
@@ -731,18 +746,28 @@ bool Report::generateMasterReport(QString q_EXCEL_TEMPLATE_FILENAME)
     }
 
     if(excelDoc.SaveFile("MasterReport.temp") != 0) // fails to save the excel document
+    {
+        emit sendExcelTemplateStatusMessage("TEMP_FILE_FAILED");
         return false;
+    }
 
     string temp;
     ofstream masterFileStream;
-    masterFileStream.open(MASTER_REPORT_FILENAME);
+    MASTER_REPORT_FILENAME = MASTER_REPORT_FILENAME + "\\Desktop\\MasterReport.xml";
+    masterFileStream.open(MASTER_REPORT_FILENAME.c_str());
     if(!masterFileStream) // file not found or cannot be opened
+    {
+        emit sendExcelTemplateStatusMessage("TEMP_FILE_FAILED");
         return false;
+    }
 
     ifstream tempFileStream;
     tempFileStream.open("MasterReport.temp");
     if(!tempFileStream) // file not found or cannot be opened
+    {
+        emit sendExcelTemplateStatusMessage("TEMP_FILE_FAILED");
         return false;
+    }
 
     masterFileStream << "<?xml version=\"1.0\"?>" << endl;
     masterFileStream << "<?mso-application progid=\"Excel.Sheet\"?>" << endl;
@@ -759,6 +784,7 @@ bool Report::generateMasterReport(QString q_EXCEL_TEMPLATE_FILENAME)
 
     remove("MasterReport.temp");
 
+    emit sendExcelTemplateStatusMessage("GOOD");
     return true;
 }
 

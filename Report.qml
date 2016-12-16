@@ -13,14 +13,50 @@ ReportForm
     //===================================================================================
     //                              MASTER REPORT
 
-    property string excel_template_filename: "C:\\Users\\Sukhdip\\Documents\\TouchlessManufacturingApplication\\Excel_Template.xml"
+    property string excel_template_filename: "Excel_Template.xml"
+
+//    TEMP_FILE_FAILED
+//    NO_TIMESTAMP
+//    ELEMENT_FAILED
+//    FAILED_TO_LOAD
+
+    Connections
+    {
+        target: _myReport
+        onSendExcelTemplateStatusMessage:
+        {
+            if(message === "GOOD")
+            {
+                msgMasterReport.text = "The MasterReport file has been created on the desktop."
+            }
+            else if(message === "TEMP_FILE_FAILED")
+            {
+                msgMasterReport.text = "Something went wrong while using the temp file."
+            }
+            else if(message === "NO_TIMESTAMP")
+            {
+                msgMasterReport.text = "No MasterReport generated since there are no timestamps."
+            }
+            else if(message === "ELEMENT_FAILED")
+            {
+                msgMasterReport.text = "Elements inside the Excel Template file were modified."
+            }
+            else if(message === "FAILED_TO_LOAD")
+            {
+                msgMasterReport.text = "Failed to load Excel Template. Excel_Template.xml must be in the same path as the executable."
+            }
+            else
+            {
+                msgMasterReport.text = "Something went wrong."
+            }
+
+            msgMasterReport.visible = true
+        }
+    }
 
     //Master report button onclick
-    btnMasterReport.onClicked:
-    {
-        _myReport.generateMasterReport(excel_template_filename)
-        msgMasterReport.visible = true
-    }
+    btnMasterReport.onClicked: _myReport.generateMasterReport(excel_template_filename)
+
 
     //lighter colour onclick
     btnMasterReport.onPressed:
@@ -90,13 +126,10 @@ ReportForm
     //Chosen Date Report Dialog
     MessageDialog
     {
-
         id: msgReport
         title: "Selected Date Report"
         icon: StandardIcon.Information
         onAccepted: visible = false
         standardButtons: StandardButton.Ok
-
-
     }
 }
